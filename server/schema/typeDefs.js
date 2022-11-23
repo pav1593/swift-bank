@@ -90,7 +90,6 @@ const typeDefs = gql`
         closeAccount (_id: ID!): Account
         addProduct (name: String!): Product
         removeProduct (_id: ID!): Product
-        transfer (accountId: InputAccount!, amount: Float!): Account
         makeTransaction (to: InputClient!, from: InputClient!, amount: Int!): Transaction
         createLoan (clientId: InputClient!, accountId: InputAccount!, amount: Float!, interest: Float!, approved: false): Loan
         approveLoan (_id: ID!): Loan
