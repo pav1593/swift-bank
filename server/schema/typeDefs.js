@@ -8,7 +8,7 @@ const typeDefs = gql`
         email: String!
         password: String!
         accounts: [Account]
-        credit score: Int
+        creditScore: Int
         admin: Boolean!
     }
 
@@ -19,7 +19,7 @@ const typeDefs = gql`
         email: String!
         password: String!
         accounts: [Account]
-        credit score: Int
+        creditScore: Int
         admin: Boolean!
     }
 
@@ -56,7 +56,7 @@ const typeDefs = gql`
         type: Transtype!
     }
 
-    input Transtype {
+    type Transtype {
         _id: ID!
         name: String!
     }
@@ -85,14 +85,14 @@ const typeDefs = gql`
         getMe: User
         getAllUsers: User
         getProducts: Product
-        getTranstypes: Transtypes
+        getTranstypes: Transtype
         getCategories: Category
     }
 
     type Mutation {
         login (email: String!, password: String!): Auth
 
-        addUser (firstName: String!, lastName!: String! email: String!, password: String!): Auth
+        addUser (firstName: String!, lastName: String! email: String!, password: String!): Auth
         removeUser (_id: ID!): User
 
         openAccount (productId: Product!): Account
@@ -102,7 +102,7 @@ const typeDefs = gql`
         addProduct (name: String!, unitPrice: Float, termDays: Int, type: Category): Product
         removeProduct (_id: ID!): Product
 
-        makeTransaction (acctId: InputUser!, transferTo: InputUser!, amount: Int!, type: Transtype): Account       
+        makeTransaction (InputAccount): Account       
     }
 `
-module.exports = typeDefs
+module.exports = typeDefs;
