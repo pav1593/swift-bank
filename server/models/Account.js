@@ -4,6 +4,14 @@ const Transaction = require('./Transaction');
 const { Schema } = mongoose;
 
 const accountSchema = new Schema({
+  userId: {
+    type: String,
+    required: true
+  },
+  account: {
+    type: String,
+    trim:true
+  },
   alias: {
     type: String,
     trim:true
