@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-    type Client {
+    type User {
         _id: ID!
         username: String!
         email: String!
@@ -10,9 +10,10 @@ const typeDefs = gql`
         loans: [Loan]
         transactions: [Transaction]
         credit score: Int
+        isAdmin: Boolean!
     }
 
-    input InputClient{
+    input InputUser{
         _id: ID!
         username: String!
         email: String!
@@ -21,12 +22,6 @@ const typeDefs = gql`
         loans: [Loan]
         transactions: [Transaction]
         credit score: Int
-    }
-
-    type Admin {
-        _id: ID!
-        email: String! 
-        password: String!
     }
 
     type Product {
@@ -42,21 +37,21 @@ const typeDefs = gql`
     type Account {
         _id: ID!
         productId: Product!
-        clientId: Client!
+        userId: User!
         transactions: [Transaction]
     }
 
     input InputAccount {
         _id: ID!
         productId: Product!
-        clientId: Client!
+        userId: User!
         transactions: [Transaction]
     }
 
     type Transaction {
         _id: ID!
-        to: Client!
-        from: Client!
+        to: User!
+        from: User!
         amount: Float!
         createdAt: String
     }
@@ -68,7 +63,7 @@ const typeDefs = gql`
     }
 
     type Loan {
-        clientId: Client!
+        userId: User!
         accountId: Account!
         amount: Float!
         interest: Float!
@@ -79,12 +74,7 @@ const typeDefs = gql`
 
     type Auth {
         token: ID!
-        clientId: Client
-    }
-
-    type AdminAuth {
-        token: ID!
-        adminId: Admin
+        cuserId: User
     }
 
     type Query {
@@ -94,16 +84,17 @@ const typeDefs = gql`
 
     type Mutation {
         login (username: String!, password: String!): Auth
-        adminLogin (email: String!, password: String!): AdminAuth
         addClient (username: String!, email: String!, password: String!): Auth
         removeClient (_id: ID!): Client
         openAccount (productId: Product!, clientId: inputClient!): Account
         closeAccount (_id: ID!): Account
         addProduct (name: String!): Product
         removeProduct (_id: ID!): Product
-        transfer (accountId: InputAccount, amount: Float!): Account
+        transfer (accountId: InputAccount!, amount: Float!): Account
         makeTransaction (to: InputClient!, from: InputClient!, amount: Int!): Transaction
-        createLoan (clientId: InputClient!, accountId: InputAccount, amount: Float!, interest: Float!, approved: false): Loan
+        createLoan (clientId: InputClient!, accountId: InputAccount!, amount: Float!, interest: Float!, approved: false): Loan
+        approveLoan (_id: ID!): Loan
+        deleteLoan (_id: ID!): Loan
     }
 `
 module.exports = typeDefs
