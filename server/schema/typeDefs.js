@@ -60,14 +60,9 @@ const typeDefs = gql`
         _id: ID!
         acctId: InputUser!
         transferTo: InputUser!
-        acctId: InputUser!
-        transferTo: InputUser!
         amount: Float!
         createdAt: String
         type: InputTransType!
-    }
-        type: InputTransType!
-
     }
 
     type TransType {
@@ -129,11 +124,10 @@ const typeDefs = gql`
         addUser (firstName: String!, lastName: String! email: String!, password: String!): Auth
         removeUser (_id: ID!): User
         
-        openAccount (productId: InputInputProduct!): Account
-        approveAccount (_id: ID!): Account
-        closeAccount (_id: ID!): Account
+        openAccount (productId: InputProduct!): Account
+        approveAccount (_id: ID!, status: String!): Account
 
-        addProduct (name: String!, unitPrice: Float, termDays: Int, type: InputCategory): Product
+        addProduct (name: String!, description: String, unitPrice: Float, unitQty: Int, termDays: Int, type: InputCategory): Product
         removeProduct (_id: ID!): Product
 
         makeTransaction (acctId: InputUser!, transferTo: InputUser!, amount: Int!, type: InputTransType): Account       
