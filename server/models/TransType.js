@@ -10,6 +10,6 @@ const transTypeSchema = new Schema({
   }
 });
 
-const TransType = mongoose.model('Category', transTypeSchema);
+const TransType = mongoose.model('TransType', transTypeSchema);
 
 module.exports = TransType;

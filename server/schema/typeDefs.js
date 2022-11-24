@@ -53,10 +53,10 @@ const typeDefs = gql`
         transferTo: User!
         amount: Float!
         createdAt: String
-        type: Transtype!
+        type: TransType!
     }
 
-    input Transtype {
+    input TransType {
         _id: ID!
         name: String!
     }
@@ -85,7 +85,7 @@ const typeDefs = gql`
         getMe: User
         getAllUsers: User
         getProducts: Product
-        getTranstypes: Transtypes
+        getTransTypes: TransType
         getCategories: Category
     }
 
@@ -102,7 +102,7 @@ const typeDefs = gql`
         addProduct (name: String!, unitPrice: Float, termDays: Int, type: Category): Product
         removeProduct (_id: ID!): Product
 
-        makeTransaction (acctId: InputUser!, transferTo: InputUser!, amount: Int!, type: Transtype): Account       
+        makeTransaction (acctId: InputUser!, transferTo: InputUser!, amount: Int!, type: TransType): Account       
     }
 `
 module.exports = typeDefs
