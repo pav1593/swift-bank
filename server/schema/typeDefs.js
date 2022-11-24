@@ -89,21 +89,21 @@ const typeDefs = gql`
     }
 
     type Query {
-        getClient: Client
-        getAllClients: Client
+        getUser: User
+        getAllUsers: User
     }
 
     type Mutation {
         login (email: String!, password: String!): Auth
-        addClient (firstName: String!, lastName!: String! email: String!, password: String!): Auth
-        removeClient (_id: ID!): Client
-        openAccount (productId: Product!, clientId: inputClient!): Account
+        addUser (firstName: String!, lastName!: String! email: String!, password: String!): Auth
+        removeUser (_id: ID!): User
+        openAccount (productId: Product!, UserId: inputUser!): Account
         closeAccount (_id: ID!): Account
         addProduct (name: String!): Product
         removeProduct (_id: ID!): Product
         transfer (accountId: InputAccount!, amount: Float!): Account
-        makeTransaction (to: InputClient!, from: InputClient!, amount: Int!): Transaction
-        createLoan (clientId: InputClient!, accountId: InputAccount!, amount: Float!, interest: Float!, approved: false): Loan
+        makeTransaction (to: InputUser!, from: InputUser!, amount: Int!): Transaction
+        createLoan (UserId: InputUser!, accountId: InputAccount!, amount: Float!, interest: Float!, approved: false): Loan
         approveLoan (_id: ID!): Loan
         deleteLoan (_id: ID!): Loan
     }
