@@ -8,7 +8,7 @@ const typeDefs = gql`
         email: String!
         password: String!
         accounts: [Account]
-        credit score: Int
+        creditScore: Int
         admin: Boolean!
     }
 
@@ -18,8 +18,8 @@ const typeDefs = gql`
         lastName: String!
         email: String!
         password: String!
-        accounts: [Account]
-        credit score: Int
+        accounts: [InputAccount]
+        creditScore: Int
         admin: Boolean!
     }
 
@@ -37,14 +37,14 @@ const typeDefs = gql`
 
     input InputAccount {
         _id: ID!
-        userId: User!
+        userId: InputUser!
         accountNumber: String!
         alias: String
         createdAt: String
         approvedAt: String
         status: String
-        product: Product
-        transactions: [Transaction]
+        product: InputProduct
+        transactions: [InputTransaction]
     }
 
     type Transaction {
@@ -53,20 +53,48 @@ const typeDefs = gql`
         transferTo: User!
         amount: Float!
         createdAt: String
-        type: Transtype!
+        type: TransType!
+    }
+    input InputTransaction {
+        _id: ID!
+        acctId: User!
+        transferTo: User!
+        amount: Float!
+        createdAt: String
+        type: TransType!
     }
 
-    input Transtype {
+    type TransType {
         _id: ID!
         name: String!
     }
 
-    input Category {
+    input InputTransType {
+        _id: ID!
+        name: String!
+    }
+
+    type Category {
+        _id: ID!
+        name: String!
+    }
+
+    input InputCategory {
         _id: ID!
         name: String!
     }
 
     type Product {
+        _id: ID!
+        name: String!
+        description: String
+        unitPrice: Float!
+        unitQty: Int
+        termDays: Int!
+        type: Category
+    }
+
+    input InputProduct {
         _id: ID!
         name: String!
         description: String
@@ -85,24 +113,24 @@ const typeDefs = gql`
         getMe: User
         getAllUsers: User
         getProducts: Product
-        getTranstypes: Transtypes
+        getTransTypes: TransType
         getCategories: Category
     }
 
     type Mutation {
         login (email: String!, password: String!): Auth
 
-        addUser (firstName: String!, lastName!: String! email: String!, password: String!): Auth
+        addUser (firstName: String!, lastName: String! email: String!, password: String!): Auth
         removeUser (_id: ID!): User
 
         openAccount (productId: Product!): Account
         approveAccount (_id: ID!): Account
         closeAccount (_id: ID!): Account
 
-        addProduct (name: String!, unitPrice: Float, termDays: Int, type: Category): Product
+        addProduct (name: String!, unitPrice: Float, termDays: Int, type: InputCategory): Product
         removeProduct (_id: ID!): Product
 
-        makeTransaction (acctId: InputUser!, transferTo: InputUser!, amount: Int!, type: Transtype): Account       
+        makeTransaction (acctId: InputUser!, transferTo: InputUser!, amount: Int!, type: InputTransType): Account       
     }
 `
 module.exports = typeDefs
