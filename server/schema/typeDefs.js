@@ -3,57 +3,62 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
     type User {
         _id: ID!
-        username: String!
+        firstName: String!
+        lastName: String!
         email: String!
         password: String!
         accounts: [Account]
-        loans: [Loan]
-        transactions: [Transaction]
         credit score: Int
-        isAdmin: Boolean!
+        admin: Boolean!
     }
 
     input InputUser{
         _id: ID!
-        username: String!
+        firstName: String!
+        lastName: String!
         email: String!
         password: String!
         accounts: [Account]
-        loans: [Loan]
-        transactions: [Transaction]
         credit score: Int
-    }
-
-    type Product {
-        _id: ID!
-        name: String!
-    }
-
-    input InputProduct {
-        _id: ID!
-        name: String!
+        admin: Boolean!
     }
 
     type Account {
         _id: ID!
-        productId: Product!
         userId: User!
+        accountNumber: String!
+        alias: String
+        createdAt: String
+        approvedAt: String
+        status: String
+        product: Product
         transactions: [Transaction]
     }
 
     input InputAccount {
         _id: ID!
-        productId: Product!
         userId: User!
+        accountNumber: String!
+        alias: String
+        createdAt: String
+        approvedAt: String
+        status: String
+        product: Product
         transactions: [Transaction]
     }
 
     type Transaction {
         _id: ID!
-        to: User!
-        from: User!
+        acctId: User!
+        transferTo: User!
         amount: Float!
         createdAt: String
+        type: Transtype
+    }
+
+    input Transtype {
+        _id: ID!
+        name: String!
     }
 
     type Transfer {
@@ -62,9 +67,15 @@ const typeDefs = gql`
         amount: Float!
     }
 
-    type Loan {
+    input InputCategory {
+        _id: ID!
+        name: String!
+    }
+
+    type Product {
         userId: User!
         accountId: Account!
+        category: 
         amount: Float!
         interest: Float!
         approved: Boolean!
@@ -74,7 +85,7 @@ const typeDefs = gql`
 
     type Auth {
         token: ID!
-        cuserId: User
+        userId: User
     }
 
     type Query {
@@ -83,8 +94,8 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        login (username: String!, password: String!): Auth
-        addClient (username: String!, email: String!, password: String!): Auth
+        login (email: String!, password: String!): Auth
+        addClient (firstName: String!, lastName!: String! email: String!, password: String!): Auth
         removeClient (_id: ID!): Client
         openAccount (productId: Product!, clientId: inputClient!): Account
         closeAccount (_id: ID!): Account
