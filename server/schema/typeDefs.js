@@ -57,11 +57,12 @@ const typeDefs = gql`
     }
     input InputTransaction {
         _id: ID!
-        acctId: User!
-        transferTo: User!
+        acctId: InputUser!
+        transferTo: InputUser!
         amount: Float!
         createdAt: String
-        type: TransType!
+        type: InputTransType!
+
     }
 
     type TransType {
@@ -101,7 +102,8 @@ const typeDefs = gql`
         unitPrice: Float!
         unitQty: Int
         termDays: Int!
-        type: Category
+        type: InputCategory
+
     }
 
     type Auth {
@@ -122,8 +124,8 @@ const typeDefs = gql`
 
         addUser (firstName: String!, lastName: String! email: String!, password: String!): Auth
         removeUser (_id: ID!): User
-
-        openAccount (productId: Product!): Account
+        
+        openAccount (productId: InputProduct!): Account
         approveAccount (_id: ID!): Account
         closeAccount (_id: ID!): Account
 
