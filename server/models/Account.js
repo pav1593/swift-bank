@@ -8,7 +8,7 @@ const accountSchema = new Schema({
     type: String,
     required: true
   },
-  account: {
+  accountNumber: {
     type: String,
     trim:true
   },
