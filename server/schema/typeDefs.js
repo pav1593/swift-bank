@@ -62,6 +62,7 @@ const typeDefs = gql`
         amount: Float!
         createdAt: String
         type: InputTransType!
+
     }
 
     type TransType {
@@ -102,6 +103,7 @@ const typeDefs = gql`
         unitQty: Int
         termDays: Int!
         type: InputCategory
+
     }
 
     type Auth {
@@ -122,7 +124,7 @@ const typeDefs = gql`
 
         addUser (firstName: String!, lastName: String! email: String!, password: String!): Auth
         removeUser (_id: ID!): User
-
+        
         openAccount (productId: InputProduct!): Account
         approveAccount (_id: ID!): Account
         closeAccount (_id: ID!): Account

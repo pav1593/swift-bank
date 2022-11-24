@@ -45,6 +45,6 @@ const accountSchema = new Schema({
 
 // virtual to calculate average balance funds
 
-const Order = mongoose.model('Account', accountSchema);
+const Account = mongoose.model('Account', accountSchema);
 
 module.exports = Account;
