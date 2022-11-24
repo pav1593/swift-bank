@@ -53,7 +53,7 @@ const typeDefs = gql`
         transferTo: User!
         amount: Float!
         createdAt: String
-        type: Transtype
+        type: Transtype!
     }
 
     input Transtype {
@@ -61,26 +61,19 @@ const typeDefs = gql`
         name: String!
     }
 
-    type Transfer {
-        _id: ID!
-        accountId: Account!
-        amount: Float!
-    }
-
-    input InputCategory {
+    input Category {
         _id: ID!
         name: String!
     }
 
     type Product {
-        userId: User!
-        accountId: Account!
-        category: 
-        amount: Float!
-        interest: Float!
-        approved: Boolean!
-        createdAt: String
-        approvedAt: String
+        _id: ID!
+        name: String!
+        description: String
+        unitPrice: Float!
+        unitQty: Int
+        termDays: Int!
+        type: Category
     }
 
     type Auth {
@@ -89,23 +82,27 @@ const typeDefs = gql`
     }
 
     type Query {
-        getUser: User
+        getMe: User
         getAllUsers: User
+        getProducts: Product
+        getTranstypes: Transtypes
+        getCategories: Category
     }
 
     type Mutation {
         login (email: String!, password: String!): Auth
+
         addUser (firstName: String!, lastName!: String! email: String!, password: String!): Auth
         removeUser (_id: ID!): User
-        openAccount (productId: Product!, UserId: inputUser!): Account
+
+        openAccount (productId: Product!): Account
+        approveAccount (_id: ID!): Account
         closeAccount (_id: ID!): Account
-        addProduct (name: String!): Product
+
+        addProduct (name: String!, unitPrice: Float, termDays: Int, type: Category): Product
         removeProduct (_id: ID!): Product
-        transfer (accountId: InputAccount!, amount: Float!): Account
-        makeTransaction (to: InputUser!, from: InputUser!, amount: Int!): Transaction
-        createLoan (UserId: InputUser!, accountId: InputAccount!, amount: Float!, interest: Float!, approved: false): Loan
-        approveLoan (_id: ID!): Loan
-        deleteLoan (_id: ID!): Loan
+
+        makeTransaction (acctId: InputUser!, transferTo: InputUser!, amount: Int!, type: Transtype): Account       
     }
 `
 module.exports = typeDefs
