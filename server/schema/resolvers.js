@@ -84,6 +84,27 @@ const resolvers = {
         
             return { token, user };
         },
-        openAccount: async (parent, )
+        openAccount: async (parent, {productId}, context) => {
+            if (context.user) {
+                const newAcc = Account.create({userId: context.user._id, accountNumber: 1, status: 'pending', product: productId, })
+
+                if (!newAcc) {
+                    throw new AuthenticationError('Account could not be created')
+                }
+
+                const addAcc2User = User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $addToSet: { accounts: newAcc } },
+                    { new: true, runValidators: true }
+                )
+
+                if (!addAcc2User) {
+                    throw new AuthenticationError('Account could not be attached to User')
+                }
+
+                return addAcc2User
+            }
+        },
+        
     }
 }
