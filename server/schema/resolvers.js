@@ -57,5 +57,33 @@ const resolvers = {
         
             return cats;
         },
+    },
+    Mutation: {
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({email: email });
+            if (!user) {
+              throw new AuthenticationError("Can't find this user");
+            }
+        
+            const correctPw = await user.isCorrectPassword(password);
+        
+            if (!correctPw) {
+              throw new AuthenticationError('Wrong password!');
+            }
+            const token = signToken(user);
+            return { token, user };
+        },
+        addUser: async (parent, {firstname, lastname, email, password}) => {
+            const user = await User.create({firstName: firstname, lastName: lastname, email: email, password: password});
+            
+            if (!user) {
+              throw new AuthenticationError('Something is wrong!')
+            }
+    
+            const token = signToken(user)
+        
+            return { token, user };
+        },
+        openAccount: async (parent, )
     }
 }

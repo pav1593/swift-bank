@@ -25,7 +25,7 @@ const userSchema = new Schema({
     required: true,
     minlength: 8
   },
-  credit_score: {
+  creditScore: {
     type: Int,
   },
   admin: {
