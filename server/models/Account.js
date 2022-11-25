@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const accountSchema = new Schema({
   userId: {
     type: String,
-    required: true
+    required:true
   },
   accountNumber: {
     type: String,

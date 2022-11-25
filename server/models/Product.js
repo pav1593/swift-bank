@@ -13,7 +13,6 @@ const productSchema = new Schema({
   },
   unitPrice: {
     type: Number,
-    required: true,
     min: 0,
     default: 0
   },

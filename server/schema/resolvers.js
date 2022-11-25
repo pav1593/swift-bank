@@ -87,6 +87,7 @@ const resolvers = {
         
             return { token, user };
         },
+       // openAccount: async (parent, )
         openAccount: async (parent, {productId}, context) => {
             if (context.user) { //replace with context stuff for testing
                 const newAcc = Account.create({userId: context.user._id, accountNumber: accNumGen, status: 'pending', product: productId})
