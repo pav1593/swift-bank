@@ -97,8 +97,8 @@ const resolvers = {
                 // }
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: "638106ba3298bc0c8ffac86f" },
-                    { $addToSet: { accounts: newAcc } },
+                    { _id: "63811a61ad300d6f4e321104" },
+                    { $addToSet: { accounts: {accountNumber: accNumGen, product: productId,status:"pending",userId:"63811a61ad300d6f4e321104"} } },
                     { new: true, runValidators: true }
                 )
 
