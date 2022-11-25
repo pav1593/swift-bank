@@ -9,9 +9,8 @@ const {
 
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-const { now } = require('mongoose');
 
-const accNumGen = Math.floor(Math.random()*10000)
+const accNumGen = Math.floor(Math.random()*10000) // require ('../utils/helper')
 
 const resolvers = {
     Query: {
@@ -25,7 +24,7 @@ const resolvers = {
             return foundUser;
         },
         getAllUsers: async (parent, args) => {
-            const allUsers = await User.findAll({})
+            const allUsers = await User.find()
            
             if (!allUsers) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -34,7 +33,7 @@ const resolvers = {
             return allUsers;
         },
         getProducts: async (parent, args) => {
-            const products = await Product.findAll({})
+            const products = await Product.find()
            
             if (!products) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -43,7 +42,7 @@ const resolvers = {
             return products;
         },
         getTransTypes: async (parent, args) => {
-            const transtypes = await TransType.findAll({})
+            const transtypes = await TransType.find()
            
             if (!transtypes) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -52,7 +51,7 @@ const resolvers = {
             return transtypes;
         },
         getCategories: async (parent, args) => {
-            const cats = await Category.findAll({})
+            const cats = await Category.find()
            
             if (!cats) {
               throw new AuthenticationError('Cannot find a user with this id!');
