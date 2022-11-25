@@ -90,15 +90,10 @@ const resolvers = {
         },
         openAccount: async (parent, {productId}, context) => {
             if (true) { //replace with context stuff for testing
-                // const newAcc = Account.create({userId: "638106ba3298bc0c8ffac86f", accountNumber: accNumGen, status: 'pending', product: productId})
-
-                // if (!newAcc) {
-                //     throw new AuthenticationError('Account could not be created')
-                // }
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: "638106ba3298bc0c8ffac86f" },
-                    { $addToSet: { accounts: newAcc } },
+                    { _id: "63811a61ad300d6f4e321104" },
+                    { $addToSet: { accounts: {accountNumber: accNumGen, product: productId,status:"pending",userId:"63811a61ad300d6f4e321104"} } },
                     { new: true, runValidators: true }
                 )
 
@@ -137,29 +132,48 @@ const resolvers = {
         },
         makeTransaction: async (parent, {acctId, transferId, amount, type}, context) => {
             if (context.user) {
-                const newTrans = Transaction.create({acctId: acctId, transferTo: transferId, amount: amount, type: type})
 
-                if (!newTrans) {
-                    throw new AuthenticationError('Transaction could not be created')
-                }
+                // const add2User = Account.findOneAndUpdate(
+                //     { _id: acctId },
+                //     { $addToSet: {transactions: newTrans}},
+                //     { new: true, runValidators: true }
+                // )
 
-                const add2User = Account.findOneAndUpdate(
-                    { _id: acctId },
-                    { $addToSet: {transactions: newTrans}},
+                // const add2Transfer = Account.findByIdAndUpdate(
+                //     { _id: transferId },
+                //     { $addToSet: {transactions: newTrans}},
+                //     { new: true, runValidators: true }
+                // )
+               
+               
+            //    { <update operator>: { "<array>.$[<identifier>]" : value } },
+            //     { arrayFilters: [ { <identifier>: <condition> } ] }
+
+
+                const addAcc2User = User.findOneAndUpdate(
+                    { firstName: "Jane"},
+                    { $addToSet: 
+                      { "accounts.$[acctId]": 
+                        {transactions: 
+                            {
+                                acctId: acctId,
+                                transferId: transferId,
+                                amount: amount, 
+                                type: type
+                            }  
+                        }
+                      }
+                    },
+                    {arrayFilters: [{acctId:acctId}]},
                     { new: true, runValidators: true }
                 )
 
-                const add2Transfer = Account.findByIdAndUpdate(
-                    { _id: transferId },
-                    { $addToSet: {transactions: newTrans}},
-                    { new: true, runValidators: true }
-                )
 
-                if(!add2User || !add2Transfer) {
-                    throw new AuthenticationError('Transaction could not be added to the user and transfer account')
-                }
+                // if(!add2User || !add2Transfer) {
+                //     throw new AuthenticationError('Transaction could not be added to the user and transfer account')
+                // }
 
-                return newTrans
+                return addAcc2User
             }
         }
     }

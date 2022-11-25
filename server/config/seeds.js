@@ -70,12 +70,12 @@ db.once('open', async () => {
 
   const transactions = await Transaction.insertMany([
     {
-      acctId: "1",
+      acctId: 1,
       amount: 1000,
       type: transTypes[6]._id,
     },
     {
-      acctId: "1",
+      acctId: 2,
       amount: 2.99,
       type: transTypes[1]._id,
     },
