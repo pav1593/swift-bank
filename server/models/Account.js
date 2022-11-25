@@ -33,7 +33,13 @@ const accountSchema = new Schema({
       required: true
     },
   transactions: [Transaction.schema]
-});
+},
+{
+  toJSON: {
+    getters: true,
+  }
+}
+);
 
 // virtual to calculate current balance
 

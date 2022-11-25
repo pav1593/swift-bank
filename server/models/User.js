@@ -34,6 +34,8 @@ const userSchema = new Schema({
     unique: true
   },
   accounts: [Account.schema]
+},{
+  id: false,
 });
 
 // set up pre-save middleware to create password

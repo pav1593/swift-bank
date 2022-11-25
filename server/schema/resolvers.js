@@ -23,8 +23,8 @@ const resolvers = {
         
             return foundUser;
         },
-        getAllUsers: async (parent, args) => {
-            const allUsers = await User.find()
+        getAllUsers: async (parent, args,context) => {
+            /*const allUsers = await*/ return User.find()
            
             if (!allUsers) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -32,7 +32,7 @@ const resolvers = {
         
             return allUsers;
         },
-        getProducts: async (parent, args) => {
+        getProducts: async (parent, args,context) => {
             const products = await Product.find()
            
             if (!products) {
