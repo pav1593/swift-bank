@@ -15,7 +15,7 @@ const accNumGen = Math.floor(Math.random()*10000) // require ('../utils/helper')
 const resolvers = {
     Query: {
         getMe: async (parent, args, context) => {
-            const foundUser = await User.findOne({ _id: context.user._id })
+            const foundUser = await User.findOne({ firstName: "Jane" })
            
             if (!foundUser) {
               throw new AuthenticationError('Cannot find a user with this id!');
