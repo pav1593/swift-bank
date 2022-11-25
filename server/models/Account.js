@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 
 const accountSchema = new Schema({
   userId: {
-    type: String,
-    // required:true
+    type: String
   },
   accountNumber: {
     type: String,
+    required:true,
     trim:true
   },
   alias: {
@@ -28,7 +28,7 @@ const accountSchema = new Schema({
   },
   product: 
     {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: 'Product',
       required: true
     },

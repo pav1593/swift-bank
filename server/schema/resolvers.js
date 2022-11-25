@@ -1,11 +1,13 @@
 const {
     Account,
-    Category,
+    //Category,
     Product,
     Transaction,
     TransType,
     User
 } = require('../models')
+
+const {Schema} = require('mongoose')
 
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
@@ -23,8 +25,8 @@ const resolvers = {
         
             return foundUser;
         },
-        getAllUsers: async (parent, args,context) => {
-            /*const allUsers = await*/ return User.find()
+        getAllUsers: async (parent, args) => {
+            const allUsers = await User.find({})
            
             if (!allUsers) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -32,8 +34,8 @@ const resolvers = {
         
             return allUsers;
         },
-        getProducts: async (parent, args,context) => {
-            const products = await Product.find()
+        getProducts: async (parent, args) => {
+            const products = await Product.find({})
            
             if (!products) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -42,7 +44,7 @@ const resolvers = {
             return products;
         },
         getTransTypes: async (parent, args) => {
-            const transtypes = await TransType.find()
+            const transtypes = await TransType.find({})
            
             if (!transtypes) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -50,15 +52,15 @@ const resolvers = {
         
             return transtypes;
         },
-        getCategories: async (parent, args) => {
-            const cats = await Category.find()
+        // getCategories: async (parent, args) => {
+        //     const cats = await Category.find({})
            
-            if (!cats) {
-              throw new AuthenticationError('Cannot find a user with this id!');
-            }
+        //     if (!cats) {
+        //       throw new AuthenticationError('Cannot find a user with this id!');
+        //     }
         
-            return cats;
-        },
+        //     return cats;
+        // },
     },
     Mutation: {
         login: async (parent, { email, password }) => {
@@ -75,8 +77,8 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        addUser: async (parent, {firstname, lastname, email, password}) => {
-            const user = await User.create({firstName: firstname, lastName: lastname, email: email, password: password});
+        addUser: async (parent, {firstName, lastName, email, password}) => {
+            const user = await User.create({firstName: firstName, lastName: lastName, email: email, password: password});
             
             if (!user) {
               throw new AuthenticationError('Something is wrong!')
@@ -86,17 +88,16 @@ const resolvers = {
         
             return { token, user };
         },
-       // openAccount: async (parent, )
         openAccount: async (parent, {productId}, context) => {
-            if (context.user) { //replace with context stuff for testing
-                const newAcc = Account.create({userId: context.user._id, accountNumber: accNumGen, status: 'pending', product: productId})
+            if (true) { //replace with context stuff for testing
+                // const newAcc = Account.create({userId: "638106ba3298bc0c8ffac86f", accountNumber: accNumGen, status: 'pending', product: productId})
 
-                if (!newAcc) {
-                    throw new AuthenticationError('Account could not be created')
-                }
+                // if (!newAcc) {
+                //     throw new AuthenticationError('Account could not be created')
+                // }
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: context.user._id },
+                    { _id: "638106ba3298bc0c8ffac86f" },
                     { $addToSet: { accounts: newAcc } },
                     { new: true, runValidators: true }
                 )
@@ -106,6 +107,7 @@ const resolvers = {
                 }
 
                 return addAcc2User
+
             }
         }, 
         approveAccount: async (parent, {accountId, newStatus}, context) => {
@@ -117,9 +119,9 @@ const resolvers = {
                 );
             }
         },
-        addProduct: async (parent, {name, description, unitPrice, unitQty, termDays, category}, context) => {
+        addProduct: async (parent, {name, description, unitPrice, unitQty, termDays}, context) => {
             if (context.user.admin) {
-                const newProd =  Product.create({name: name, description: description, unitPrice: unitPrice, unitQty: unitQty, termDays: termDays, type: category})
+                const newProd =  Product.create({name: name, description: description, unitPrice: unitPrice, unitQty: unitQty, termDays: termDays})
 
                 if (!newProd) {
                     throw new AuthenticationError('Product could not be added')

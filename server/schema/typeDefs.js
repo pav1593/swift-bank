@@ -3,66 +3,66 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
     type User {
         _id: ID
-        firstName: String
-        lastName: String
-        email: String
-        password: String
+        firstName: String!
+        lastName: String!
+        email: String!
+        password: String!
         accounts: [Account]
         creditScore: Int
-        admin: Boolean
+        admin: Boolean!
     }
 
     input InputUser{
         _id: ID
-        firstName: String
-        lastName: String
-        email: String
-        password: String
+        firstName: String!
+        lastName: String!
+        email: String!
+        password: String!
         accounts: [InputAccount]
         creditScore: Int
-        admin: Boolean
+        admin: Boolean!
     }
 
     type Account {
         _id: ID
-        userId: String
-        accountNumber: String
+        userId: String!
+        accountNumber: String!
         alias: String
         createdAt: String
         approvedAt: String
         status: String
-        product: Product
+        product: [Product]!
         transactions: [Transaction]
     }
 
     input InputAccount {
         _id: ID
-        userId: String
-        accountNumber: String
+        userId: String!
+        accountNumber: String!
         alias: String
         createdAt: String
         approvedAt: String
         status: String
-        product: InputProduct
+        product: [InputProduct]!
         transactions: [InputTransaction]
     }
 
     type Transaction {
         _id: ID!
-        acctId: User!
-        transferTo: User!
+        acctId: [User]!
+        transferTo: [User]
         amount: Float!
         createdAt: String
-        type: TransType!
+        type: [TransType]!
     }
 
     input InputTransaction {
         _id: ID!
-        acctId: InputUser!
-        transferTo: InputUser!
+        acctId: [InputUser]!
+        transferTo: [InputUser]
         amount: Float!
         createdAt: String
-        type: InputTransType!
+        type: [InputTransType]!
     }
 
     type TransType {
@@ -75,39 +75,27 @@ const typeDefs = gql`
         name: String!
     }
 
-    type Category {
-        _id: ID!
-        name: String!
-    }
-
-    input InputCategory {
-        _id: ID!
-        name: String!
-    }
-
     type Product {
         _id: ID
-        name: String
+        name: String!
         description: String
-        unitPrice: Float
+        unitPrice: Float!
         unitQty: Int
         termDays: Int
-        type: Category
     }
 
     input InputProduct {
         _id: ID
-        name: String
+        name: String!
         description: String
-        unitPrice: Float
+        unitPrice: Float!
         unitQty: Int
         termDays: Int
-        type: InputCategory
     }
 
     type Auth {
         token: ID!
-        userId: User
+        userId: [User]
     }
 
     type Query {
@@ -115,19 +103,17 @@ const typeDefs = gql`
         getAllUsers: [User]
         getProducts: [Product]
         getTransTypes: [TransType]
-        getCategories: [Category]
     }
 
     type Mutation {
         login (email: String!, password: String!): Auth
 
         addUser (firstName: String!, lastName: String! email: String!, password: String!): Auth
-        removeUser (_id: ID!): User
         
-        openAccount (productId: InputProduct!): Account
+        openAccount (productId: [InputProduct]!): Account
         approveAccount (_id: ID!, status: String!): Account
 
-        addProduct (name: String!, description: String, unitPrice: Float, unitQty: Int, termDays: Int, type: InputCategory): Product
+        addProduct (name: String!, description: String, unitPrice: Float, unitQty: Int, termDays: Int): Product
         removeProduct (_id: ID!): Product
 
         makeTransaction (acctId: InputUser!, transferTo: InputUser!, amount: Int!, type: InputTransType): Account       
