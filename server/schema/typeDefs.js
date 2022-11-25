@@ -2,31 +2,31 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
     type User {
-        _id: ID!
-        firstName: String!
-        lastName: String!
-        email: String!
-        password: String!
+        _id: ID
+        firstName: String
+        lastName: String
+        email: String
+        password: String
         accounts: [Account]
         creditScore: Int
-        admin: Boolean!
+        admin: Boolean
     }
 
     input InputUser{
-        _id: ID!
-        firstName: String!
-        lastName: String!
-        email: String!
-        password: String!
+        _id: ID
+        firstName: String
+        lastName: String
+        email: String
+        password: String
         accounts: [InputAccount]
         creditScore: Int
-        admin: Boolean!
+        admin: Boolean
     }
 
     type Account {
-        _id: ID!
-        userId: User!
-        accountNumber: String!
+        _id: ID
+        userId: String
+        accountNumber: String
         alias: String
         createdAt: String
         approvedAt: String
@@ -36,9 +36,9 @@ const typeDefs = gql`
     }
 
     input InputAccount {
-        _id: ID!
-        userId: InputUser!
-        accountNumber: String!
+        _id: ID
+        userId: String
+        accountNumber: String
         alias: String
         createdAt: String
         approvedAt: String
@@ -86,22 +86,22 @@ const typeDefs = gql`
     }
 
     type Product {
-        _id: ID!
-        name: String!
+        _id: ID
+        name: String
         description: String
-        unitPrice: Float!
+        unitPrice: Float
         unitQty: Int
-        termDays: Int!
+        termDays: Int
         type: Category
     }
 
     input InputProduct {
-        _id: ID!
-        name: String!
+        _id: ID
+        name: String
         description: String
-        unitPrice: Float!
+        unitPrice: Float
         unitQty: Int
-        termDays: Int!
+        termDays: Int
         type: InputCategory
     }
 
@@ -112,10 +112,10 @@ const typeDefs = gql`
 
     type Query {
         getMe: User
-        getAllUsers: User
-        getProducts: Product
-        getTransTypes: TransType
-        getCategories: Category
+        getAllUsers: [User]
+        getProducts: [Product]
+        getTransTypes: [TransType]
+        getCategories: [Category]
     }
 
     type Mutation {
