@@ -24,7 +24,7 @@ const resolvers = {
             return foundUser;
         },
         getAllUsers: async (parent, args) => {
-            const allUsers = await User.find()
+            const allUsers = await User.find({})
            
             if (!allUsers) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -33,7 +33,7 @@ const resolvers = {
             return allUsers;
         },
         getProducts: async (parent, args) => {
-            const products = await Product.find()
+            const products = await Product.find({})
            
             if (!products) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -42,7 +42,7 @@ const resolvers = {
             return products;
         },
         getTransTypes: async (parent, args) => {
-            const transtypes = await TransType.find()
+            const transtypes = await TransType.find({})
            
             if (!transtypes) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -51,7 +51,7 @@ const resolvers = {
             return transtypes;
         },
         getCategories: async (parent, args) => {
-            const cats = await Category.find()
+            const cats = await Category.find({})
            
             if (!cats) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -86,7 +86,6 @@ const resolvers = {
         
             return { token, user };
         },
-       // openAccount: async (parent, )
         openAccount: async (parent, {productId}, context) => {
             if (context.user) { //replace with context stuff for testing
                 const newAcc = Account.create({userId: context.user._id, accountNumber: accNumGen, status: 'pending', product: productId})
