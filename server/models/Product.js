@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const productSchema = new Schema({
   name: {
     type: String,
-    // required: true,
+    required: true,
     trim: true
   },
   description: {
@@ -13,6 +13,7 @@ const productSchema = new Schema({
   },
   unitPrice: {
     type: Number,
+    required: true,
     min: 0,
     default: 0
   },
@@ -26,15 +27,16 @@ const productSchema = new Schema({
     min: 0,
     default: 0
   },
-  type: {
-    type: Schema.Types.ObjectId,
-    ref: 'Category',
-    // required: true
-  }
+  // type: {
+  //   type: String,
+  //   ref: 'Category',
+  //   //required: true
+  // }
 },
-{
-  id: false,
-});
+// {
+//   id: false,
+// }
+);
 
 // virtual to calculate outstanding amount
 

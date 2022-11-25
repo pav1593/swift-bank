@@ -5,18 +5,18 @@ const { User, Product, Category, Account,Transaction,TransType } = require('../m
 db.once('open', async () => {
   await Category.deleteMany();
 
-  const categories = await Category.insertMany([
-    { name: 'Personal Deposit Account' },
-    { name: 'Business Deposit Account' },
-    { name: 'Joint Deposit Account' },
-    { name: 'Fixed Rate Mortgage' },
-    { name: 'Floating Rate Mortgage' },
-    { name: 'Personal Investment Account' },
-    { name: 'Personal Line of Credit' },
-    { name: 'Fixed Rate Loan' }
-  ]);
+  // const categories = await Category.insertMany([
+  //   { name: 'Personal Deposit Account' },
+  //   { name: 'Business Deposit Account' },
+  //   { name: 'Joint Deposit Account' },
+  //   { name: 'Fixed Rate Mortgage' },
+  //   { name: 'Floating Rate Mortgage' },
+  //   { name: 'Personal Investment Account' },
+  //   { name: 'Personal Line of Credit' },
+  //   { name: 'Fixed Rate Loan' }
+  // ]);
 
-  console.log('Porduct categories seeded');
+  // console.log('Product categories seeded');
 
   await TransType.deleteMany();
 
@@ -44,13 +44,12 @@ db.once('open', async () => {
       name: 'Personal Deposit',
       description:
         'Personal deposit account',
-      type: categories[0]._id,
     },
     {
       name: 'Fixed Rate Loan',
       description:
         'Persoanl loan',
-      type: categories[7]._id,
+      //type: categories[7]._id,
       unitPrice: 10000,
       unitQty:1,
       termDays: 730
@@ -59,7 +58,7 @@ db.once('open', async () => {
       name: 'Personal Investment Account',
       description:
         'Personal Investment Account',
-      type: categories[5]._id
+      //type: categories[5]._id
     },
    
   ]);
@@ -93,7 +92,7 @@ db.once('open', async () => {
     lastName: 'Doe',
     email: 'jane@abc.com',
     password: 'password',
-    admin: false,
+    admin: true,
     accounts: [
       {
         accountNumber: "1",
