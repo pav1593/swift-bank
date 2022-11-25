@@ -9,6 +9,9 @@ const {
 
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const { now } = require('mongoose');
+
+const accNumGen = Math.floor(Math.random()*10000)
 
 const resolvers = {
     Query: {
@@ -84,6 +87,80 @@ const resolvers = {
         
             return { token, user };
         },
-        openAccount: async (parent, )
+        openAccount: async (parent, {productId}, context) => {
+            if (context.user) { //replace with context stuff for testing
+                const newAcc = Account.create({userId: context.user._id, accountNumber: accNumGen, status: 'pending', product: productId})
+
+                if (!newAcc) {
+                    throw new AuthenticationError('Account could not be created')
+                }
+
+                const addAcc2User = User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $addToSet: { accounts: newAcc } },
+                    { new: true, runValidators: true }
+                )
+
+                if (!addAcc2User) {
+                    throw new AuthenticationError('Account could not be attached to User')
+                }
+
+                return addAcc2User
+            }
+        }, 
+        approveAccount: async (parent, {accountId, newStatus}, context) => {
+            if (context.user.admin) {
+                return Account.findOneAndUpdate(
+                    { _id: accountId },
+                    { $set: { status: newStatus, approvedAt: new Date() } },
+                    { new: true, runValidators: true }
+                );
+            }
+        },
+        addProduct: async (parent, {name, description, unitPrice, unitQty, termDays, category}, context) => {
+            if (context.user.admin) {
+                const newProd =  Product.create({name: name, description: description, unitPrice: unitPrice, unitQty: unitQty, termDays: termDays, type: category})
+
+                if (!newProd) {
+                    throw new AuthenticationError('Product could not be added')
+                }
+
+                return newProd //may need to add *addProd2Cat
+            }
+        },
+        removeProduct: async (parent, {productId}, context) => {
+            if (context.user.admin) {
+                return Product.findByIdAndDelete({ _id: productId })
+            }
+        },
+        makeTransaction: async (parent, {acctId, transferId, amount, type}, context) => {
+            if (context.user) {
+                const newTrans = Transaction.create({acctId: acctId, transferTo: transferId, amount: amount, type: type})
+
+                if (!newTrans) {
+                    throw new AuthenticationError('Transaction could not be created')
+                }
+
+                const add2User = Account.findOneAndUpdate(
+                    { _id: acctId },
+                    { $addToSet: {transactions: newTrans}},
+                    { new: true, runValidators: true }
+                )
+
+                const add2Transfer = Account.findByIdAndUpdate(
+                    { _id: transferId },
+                    { $addToSet: {transactions: newTrans}},
+                    { new: true, runValidators: true }
+                )
+
+                if(!add2User || !add2Transfer) {
+                    throw new AuthenticationError('Transaction could not be added to the user and transfer account')
+                }
+
+                return newTrans
+            }
+        }
     }
 }
+
+module.exports = resolvers
