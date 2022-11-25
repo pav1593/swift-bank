@@ -26,7 +26,7 @@ const userSchema = new Schema({
     minlength: 8
   },
   creditScore: {
-    type: Int,
+    type: Number,
   },
   admin: {
     type: Boolean,

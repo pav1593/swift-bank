@@ -4,8 +4,7 @@ const { Schema } = mongoose;
 
 const transactionSchema = new Schema({
   acctId: {
-    type: String,
-    required:true
+    type: Number,
   },
   transferTo: {
     type: String,

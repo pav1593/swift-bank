@@ -84,6 +84,6 @@ const resolvers = {
         
             return { token, user };
         },
-        openAccount: async (parent, )
+       // openAccount: async (parent, )
     }
 }
