@@ -109,7 +109,7 @@ db.once('open', async () => {
     lastName: 'Doe',
     email: 'jane@abc.com',
     password: 'password',
-    admin: true,
+    admin: false,
     accounts: [ accounts[0], accounts[1]]
   });
 
