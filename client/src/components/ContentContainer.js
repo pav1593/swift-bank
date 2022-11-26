@@ -18,14 +18,37 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Link } from '@mui/material';
 import Login from '../pages/Login';
-import Dashboard from '../pages/Dashboard'
-import Footer from './Footer'
+import Dashboard from '../pages/Dashboard';
+import Contact from '../pages/Contact';
+import OpenAccount from '../pages/OpenAccount';
+import AccountSummary from '../pages/AccountSummary';
+import ViewTransactions from '../pages/TransactionsView';
+import Footer from './Footer';
 
 const drawerWidth = 240;
 
 function Container(props) {
+  const [currentPage, setCurrentPage] = useState('Home');
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const renderPage = () => {
+    if (currentPage === "Dashboard") { // Add account auth
+      return <Dashboard/>
+    }
+    if (currentPage === "Contact") { // No need for auth
+      return <Contact/>
+    }
+    if (currentPage === "OpenAccount") { // Add account auth
+      return <OpenAccount/>
+    }
+    if (currentPage === "AccountSummary") { // Add account auth
+      return <AccountSummary/>
+    }
+    if (currentPage === "ViewTransactions") { // Add admin auth?
+      return <ViewTransactions/>
+    }
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
