@@ -85,6 +85,23 @@ db.once('open', async () => {
 
   console.log('Transactions seeded');
 
+  await Account.deleteMany()
+
+  const accounts = await Account.insertMany([
+    {
+      accountNumber: 1,
+      product: products[0]._id,
+      transactions: [transactions[0],transactions[1]]
+    },
+    {
+      accountNumber: 2,
+      product: products[1]._id,
+     transactions: [transactions[0]]
+    }
+  ])
+
+  console.log('Accounts seeded')
+
   await User.deleteMany();
 
   await User.create({
@@ -93,18 +110,7 @@ db.once('open', async () => {
     email: 'jane@abc.com',
     password: 'password',
     admin: true,
-    accounts: [
-      {
-        accountNumber: "1",
-        product: products[0]._id,
-        transactions: [transactions[0],transactions[1]]
-      },
-      {
-        accountNumber: "2",
-        product: products[1]._id,
-       transactions: transactions[0]
-      }
-    ]
+    accounts: [ accounts[0], accounts[1]]
   });
 
   await User.create({
