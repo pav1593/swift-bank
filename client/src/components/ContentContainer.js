@@ -24,6 +24,7 @@ import OpenAccount from '../pages/OpenAccount';
 import AccountSummary from '../pages/AccountSummary';
 import ViewTransactions from '../pages/TransactionsView';
 import Footer from './Footer';
+import { User } from '../../../server/models';
 
 const drawerWidth = 240;
 
@@ -59,34 +60,36 @@ function Container(props) {
       <Toolbar />
       <Divider />
       {/* User Routes */}
-      <List>
-        {['Dashboard'].map((text, index) => (
+      {(User) && (
+        <List> 
+        {['Dashboard', 'Accounts'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <Link href={"#"+text} underline="none">
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
+            <a href={"/"+text}>
+              <ListItemButton onSubmit={setCurrentPage(text)}>
                 <ListItemText primary={text} />
               </ListItemButton>
-            </Link>
+            </a>
           </ListItem>
+          
         ))}
       </List>
+      )}
       {/* Admin Routes */}
-      <List> 
+      {(admin) && (
+        <List> 
         {['Requests', 'Products', 'Clients'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+            <a href={"/"+text}>
+              <ListItemButton onSubmit={setCurrentPage(text)}>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </a>
           </ListItem>
+          
         ))}
       </List>
-    </div>
+      )}
+  </div>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -152,7 +155,7 @@ function Container(props) {
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        <Toolbar />
+        {renderPage()}
         <Login/>
       </Box>
     </Box>
