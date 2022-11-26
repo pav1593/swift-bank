@@ -27,10 +27,18 @@ const productSchema = new Schema({
     min: 0,
     default: 0
   },
+  fixedRate: {
+    type: Number,
+    default: 0
+  },
+  floatRate: {
+    type: Number,
+    default: 0
+  },
   // type: {
   //   type: String,
   //   ref: 'Category',
-  //   //required: true
+  //   required: true
   // }
 },
 // {
@@ -38,9 +46,6 @@ const productSchema = new Schema({
 // }
 );
 
-// virtual to calculate outstanding amount
-
-// virtual to calculate maturity date
 
 const Product = mongoose.model('Product', productSchema);
 
