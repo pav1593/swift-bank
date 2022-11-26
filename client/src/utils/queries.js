@@ -21,7 +21,6 @@ query GetMe {
     }
 }
 `
-
 export const QUERY_ALL_USERS = gql`
 query AllUsers {
     getAllUsers {
@@ -42,7 +41,6 @@ query AllUsers {
     }
 }
 `
-
 export const QUERY_USER_TRANSACTIONS = gql`
 query UserTransactions {
     getAllUsers {
