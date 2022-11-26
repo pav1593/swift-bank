@@ -49,8 +49,8 @@ const typeDefs = gql`
 
     type Transaction {
         _id: ID!
-        acctId: Int!
-        transferTo: Int
+        acctId: ID!
+        transferTo: ID
         amount: Float!
         createdAt: String
         type: TransType
@@ -58,8 +58,8 @@ const typeDefs = gql`
 
     input InputTransaction {
         _id: ID!
-        acctId: Int!
-        transferTo: Int
+        acctId: ID!
+        transferTo: ID
         amount: Float!
         createdAt: String
         type: ID
@@ -111,12 +111,12 @@ const typeDefs = gql`
         addUser (firstName: String!, lastName: String! email: String!, password: String!): Auth
         
         openAccount (productId: ID!): User
-        approveAccount (accountNumber: Int!, newStatus: String!): User
+        approveAccount (_id: ID!, newStatus: String!): User
 
         addProduct (name: String!, description: String, unitPrice: Float, unitQty: Int, termDays: Int): Product
         removeProduct (_id: ID!): Product
 
-        makeTransaction (accNum: Int!, transferTo: Int, amount: Float!, type: ID): User       
+        makeTransaction (acctId: ID!, transferId: ID, amount: Float!, type: ID): User       
     }
 `
 module.exports = typeDefs

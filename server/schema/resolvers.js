@@ -1,18 +1,11 @@
 const {
-    Account,
-    //Category,
     Product,
-    Transaction,
-    TransType,
+    //TransType,
     User
 } = require('../models')
 
-const mongoose = require('mongoose')
-
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-
-const accNumGen = Math.floor(Math.random()*10000) // require ('../utils/helper')
 
 const resolvers = {
     Query: {
@@ -43,15 +36,15 @@ const resolvers = {
         
             return products;
         },
-        getTransTypes: async (parent, args) => {
-            const transtypes = await TransType.find({})
+        // getTransTypes: async (parent, args) => {
+        //     const transtypes = await TransType.find({})
            
-            if (!transtypes) {
-              throw new AuthenticationError('Cannot find a user with this id!');
-            }
+        //     if (!transtypes) {
+        //       throw new AuthenticationError('Cannot find a user with this id!');
+        //     }
         
-            return transtypes;
-        },
+        //     return transtypes;
+        // },
         // getCategories: async (parent, args) => {
         //     const cats = await Category.find({})
            
@@ -92,8 +85,8 @@ const resolvers = {
             if (context.user) { //replace with context stuff for testing
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: context.user.id },
-                    { $addToSet: { accounts: {accountNumber: accNumGen, product: productId, status: "pending", userId: context.user.id} } },
+                    { _id: context.user._id },
+                    { $addToSet: { accounts: {product: productId, userId: context.user.id} } },
                     { new: true, runValidators: true }
                 )
 
@@ -104,10 +97,10 @@ const resolvers = {
                 return addAcc2User
             }
         }, 
-        approveAccount: async (parent, { accountNumber, newStatus}, context) => {
+        approveAccount: async (parent, { acctId, newStatus}, context) => {
             if (context.user.admin) {
                 return User.findOneAndUpdate( 
-                { "accounts.accountNumber": accountNumber},                    
+                { "accounts._id": acctId},                    
                 { $set:  {"accounts.$.status": newStatus, "accounts.$.approvedAt": new Date()  } },
                 { new: true, runValidators: true }
                 )
@@ -121,7 +114,7 @@ const resolvers = {
                     throw new AuthenticationError('Product could not be added')
                 }
 
-                return newProd //may need to add *addProd2Cat
+                return newProd
             }
         },
         removeProduct: async (parent, args, context) => {
@@ -136,13 +129,13 @@ const resolvers = {
                 })
             }
         },
-        makeTransaction: async (parent, {accNum, transferId, amount, type}, context) => {
-            if (context.user) {
+        makeTransaction: async (parent, {acctId, transferId, amount, type}, context) => {
+            if (true) {
 
                 const add2User = User.findOneAndUpdate(
-                    { "accounts.accountNumber": accNum },
+                    { "accounts._id": acctId },
                     { $addToSet: {"accounts.$.transactions": {
-                        acctId: accNum,
+                        acctId: acctId,
                         transferId: transferId,
                         amount: amount, 
                         type: type
@@ -150,9 +143,20 @@ const resolvers = {
                     { new: true, runValidators: true }
                 )
 
-                // if(!add2User || !add2Transfer) {
-                //     throw new AuthenticationError('Transaction could not be added to the user and transfer account')
-                // }
+                const add2Transfer = User.findOneAndUpdate(
+                    { "accounts._id": transferId },
+                    { $addToSet: {"accounts.$.transactions": {
+                        acctId: transferId,
+                        transferId: acctId,
+                        amount: -amount, 
+                        type: type
+                    }}},
+                    { new: true, runValidators: true }
+                )
+
+                if(!add2User || !add2Transfer) {
+                    throw new AuthenticationError('Transaction could not be added to the user and transfer account')
+                }
 
                 return add2User
             }
