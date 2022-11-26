@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const GetMe = gql`
+export const QUERY_GETME = gql`
 query GetMe {
     getMe {
       accounts {
@@ -16,6 +16,43 @@ query GetMe {
           type {
             name
           }
+        }
+      }
+    }
+}
+`
+
+export const QUERY_ALL_USERS = gql`
+query AllUsers {
+    getAllUsers {
+      accounts {
+        createdAt
+        product {
+          name
+          description
+        }
+        transactions {
+          amount
+        }
+        status
+      }
+      creditScore
+      firstName
+      lastName
+    }
+}
+`
+
+export const QUERY_USER_TRANSACTIONS = gql`
+query UserTransactions {
+    getAllUsers {
+      firstName
+      lastName
+      accounts {
+        accountNumber
+        transactions {
+          amount
+          createdAt
         }
       }
     }

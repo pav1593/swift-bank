@@ -11,7 +11,6 @@ const mongoose = require('mongoose')
 
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-const { trusted } = require('mongoose');
 
 const accNumGen = Math.floor(Math.random()*10000) // require ('../utils/helper')
 
