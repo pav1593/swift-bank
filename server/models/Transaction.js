@@ -4,11 +4,11 @@ const { Schema } = mongoose;
 
 const transactionSchema = new Schema({
   acctId: {
-    type: Number,
+    type: Schema.Types.ObjectId,
     required: true,
   },
   transferTo: {
-    type: String,
+    type: Schema.Types.ObjectId,
   },
   amount: {
     type: Number,

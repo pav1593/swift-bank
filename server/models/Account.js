@@ -9,8 +9,8 @@ const accountSchema = new Schema({
   },
   accountNumber: {
     type: Number,
-    required:true,
     trim:true
+    // unused, but planned to be used for easier client reference
   },
   alias: {
     type: String,
@@ -24,7 +24,8 @@ const accountSchema = new Schema({
     type: Date
   },
   status: {
-    type: String
+    type: String,
+    default: 'pending'
   },
   product: 
     {
