@@ -7,10 +7,11 @@ const {
     User
 } = require('../models')
 
-const {Schema} = require('mongoose')
+const mongoose = require('mongoose')
 
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const { trusted } = require('mongoose');
 
 const accNumGen = Math.floor(Math.random()*10000) // require ('../utils/helper')
 
@@ -89,11 +90,11 @@ const resolvers = {
             return { token, user };
         },
         openAccount: async (parent, {productId}, context) => {
-            if (true) { //replace with context stuff for testing
+            if (context.user) { //replace with context stuff for testing
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: "63811a61ad300d6f4e321104" },
-                    { $addToSet: { accounts: {accountNumber: accNumGen, product: productId,status:"pending",userId:"63811a61ad300d6f4e321104"} } },
+                    { _id: context.user.id },
+                    { $addToSet: { accounts: {accountNumber: accNumGen, product: productId, status: "pending", userId: context.user.id} } },
                     { new: true, runValidators: true }
                 )
 
@@ -102,16 +103,15 @@ const resolvers = {
                 }
 
                 return addAcc2User
-
             }
         }, 
-        approveAccount: async (parent, {accountId, newStatus}, context) => {
+        approveAccount: async (parent, { accountNumber, newStatus}, context) => {
             if (context.user.admin) {
-                return Account.findOneAndUpdate(
-                    { _id: accountId },
-                    { $set: { status: newStatus, approvedAt: new Date() } },
-                    { new: true, runValidators: true }
-                );
+                return User.findOneAndUpdate( 
+                { "accounts.accountNumber": accountNumber},                    
+                { $set:  {"accounts.$.status": newStatus, "accounts.$.approvedAt": new Date()  } },
+                { new: true, runValidators: true }
+                )
             }
         },
         addProduct: async (parent, {name, description, unitPrice, unitQty, termDays}, context) => {
@@ -125,55 +125,37 @@ const resolvers = {
                 return newProd //may need to add *addProd2Cat
             }
         },
-        removeProduct: async (parent, {productId}, context) => {
+        removeProduct: async (parent, args, context) => {
             if (context.user.admin) {
-                return Product.findByIdAndDelete({ _id: productId })
+                return Product.findOneAndDelete( args , function (err, res) {
+                    if (err){
+                        console.log(err)
+                    }
+                    else{
+                        console.log("Deleted Product: ", res, args);
+                    }
+                })
             }
         },
-        makeTransaction: async (parent, {acctId, transferId, amount, type}, context) => {
+        makeTransaction: async (parent, {accNum, transferId, amount, type}, context) => {
             if (context.user) {
 
-                // const add2User = Account.findOneAndUpdate(
-                //     { _id: acctId },
-                //     { $addToSet: {transactions: newTrans}},
-                //     { new: true, runValidators: true }
-                // )
-
-                // const add2Transfer = Account.findByIdAndUpdate(
-                //     { _id: transferId },
-                //     { $addToSet: {transactions: newTrans}},
-                //     { new: true, runValidators: true }
-                // )
-               
-               
-            //    { <update operator>: { "<array>.$[<identifier>]" : value } },
-            //     { arrayFilters: [ { <identifier>: <condition> } ] }
-
-
-                const addAcc2User = User.findOneAndUpdate(
-                    { firstName: "Jane"},
-                    { $addToSet: 
-                      { "accounts.$[acctId]": 
-                        {transactions: 
-                            {
-                                acctId: acctId,
-                                transferId: transferId,
-                                amount: amount, 
-                                type: type
-                            }  
-                        }
-                      }
-                    },
-                    {arrayFilters: [{acctId:acctId}]},
+                const add2User = User.findOneAndUpdate(
+                    { "accounts.accountNumber": accNum },
+                    { $addToSet: {"accounts.$.transactions": {
+                        acctId: accNum,
+                        transferId: transferId,
+                        amount: amount, 
+                        type: type
+                    }}},
                     { new: true, runValidators: true }
                 )
-
 
                 // if(!add2User || !add2Transfer) {
                 //     throw new AuthenticationError('Transaction could not be added to the user and transfer account')
                 // }
 
-                return addAcc2User
+                return add2User
             }
         }
     }
