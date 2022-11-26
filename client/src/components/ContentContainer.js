@@ -60,7 +60,7 @@ function Container(props) {
       <Toolbar />
       <Divider />
       {/* User Routes */}
-      {(User) && (
+      {(user) && (
         <List> 
         {['Dashboard', 'Accounts'].map((text, index) => (
           <ListItem key={text} disablePadding>
