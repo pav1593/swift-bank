@@ -31,8 +31,11 @@ const typeDefs = gql`
         createdAt: String
         approvedAt: String
         status: String
-        product: [Product]
+        product: Product
         transactions: [Transaction]
+        accountBalance: Float
+        originalAmount: Float
+        maturityDate: String
     }
 
     input InputAccount {
@@ -43,7 +46,7 @@ const typeDefs = gql`
         createdAt: String
         approvedAt: String
         status: String
-        product: [InputProduct]
+        product: InputProduct
         transactions: [InputTransaction]
     }
 
@@ -82,6 +85,8 @@ const typeDefs = gql`
         unitPrice: Float!
         unitQty: Int
         termDays: Int
+        fixedRate: Float
+        floatRate: Float
     }
 
     input InputProduct {

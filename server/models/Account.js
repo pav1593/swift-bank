@@ -27,9 +27,21 @@ const accountSchema = new Schema({
     type: String,
     default: 'pending'
   },
+  accountBalance: {
+    type:Number,
+    get: calcBalance
+  },
+  originalAmount: {
+    type: Number,
+    get: calcAmount
+  },
+  maturityDate: {
+    type: String,
+    get: calcMaturityDate
+  },
   product: 
     {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: 'Product',
       required: true
     },
@@ -42,15 +54,27 @@ const accountSchema = new Schema({
 }
 );
 
-// virtual to calculate current balance
+// function to calculate current balance
+function calcBalance() {
+  let balance=0;
+  for(i=0;i<this.transactions.length;i++){
+    balance+=this.transactions[i].amount;
+  }
+  return balance;
+}
 
-// virtual to calculate current period interest
+// function to calculate original loan or investment amount
+function calcAmount() {
+  return this.product.unitPrice*this.product.unitQty;
+}
 
-// virtual to calculate accumulated interest
+//function to calculate loan or investment maturity date
+function calcMaturityDate() {
+    const maturity = new Date(this.createdAt);
+    maturity.setDate(this.createdAt.getDate() + this.product.termDays);
+  return maturity.toLocaleDateString();
+}
 
-// virtual to calculate funds available
-
-// virtual to calculate average balance funds
 
 const Account = mongoose.model('Account', accountSchema);
 

@@ -9,7 +9,7 @@ const { typeDefs, resolvers } = require('./schema');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
-  //introspection: true,
+  introspection: true,
   typeDefs,
   resolvers,
   context: authMiddleware,
