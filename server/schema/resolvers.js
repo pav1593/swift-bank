@@ -140,9 +140,9 @@ const resolvers = {
                         amount: amount, 
                         type: type
                     }}},
-                    { new: true, runValidators: true }
+                    { new: true, runValidators: true}
                 )
-
+                
                 const add2Transfer = User.findOneAndUpdate(
                     { "accounts._id": transferId },
                     { $addToSet: {"accounts.$.transactions": {
@@ -151,14 +151,14 @@ const resolvers = {
                         amount: -amount, 
                         type: type
                     }}},
-                    { new: true, runValidators: true }
+                    { new: true, runValidators: true}
                 )
 
                 if(!add2User || !add2Transfer) {
                     throw new AuthenticationError('Transaction could not be added to the user and transfer account')
                 }
 
-                return add2User
+                return Promise.all([add2User, add2Transfer])
             }
         }
     }
