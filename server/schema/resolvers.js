@@ -102,7 +102,7 @@ const resolvers = {
             }
         }, 
         approveAccount: async (parent, { acctId, newStatus}, context) => {
-            if (true) {
+            if (context.user.admin) {
                 const cheese = User.findOneAndUpdate( 
                 { "accounts._id": acctId},                    
                 { $set:  {"accounts.$.status": newStatus, "accounts.$.approvedAt": new Date() } },
