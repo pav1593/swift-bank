@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
+const TransType = require('./TransType');
 
 const { Schema } = mongoose;
 
 const transactionSchema = new Schema({
-  acctId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-  },
+  // acctId: {
+  //   type: Schema.Types.ObjectId,
+  //   required: true,
+  // },
   transferTo: {
     type: Schema.Types.ObjectId,
   },
@@ -18,11 +19,12 @@ const transactionSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  type: {
-    type: Schema.Types.ObjectId,
-    ref: 'TransType',
-    //required: true
-  }
+  type: [TransType.schema],
+  // {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'TransType',
+  //   //required: true
+  // }
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);

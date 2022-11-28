@@ -1,6 +1,7 @@
 const db = require('./connection');
 const mongoose = require('mongoose');
 const { User, Product, Category, Account,Transaction,TransType } = require('../models');
+const {Schema} = require('mongoose');
 
 db.once('open', async () => {
   await Category.deleteMany();
@@ -70,18 +71,17 @@ db.once('open', async () => {
 
   const transactions = await Transaction.insertMany([
     {
-      acctId: 1,
+      //acctId: mongoose.Types.ObjectId('638263f9171b52801a452aa7'),
       amount: 1000,
-      type: transTypes[6]._id,
+      type: [transTypes[6]],
     },
     {
-      acctId: 2,
+      //acctId: mongoose.Types.ObjectId('638263f9171b52801a452aaa'),
       amount: 2.99,
-      type: transTypes[1]._id,
+      type: [transTypes[1]],
     },
    
   ]);
-  console.log('transactions:',mongoose.Types.ObjectId(transactions[0]._id));
 
   console.log('Transactions seeded');
 
@@ -89,13 +89,13 @@ db.once('open', async () => {
 
   const accounts = await Account.insertMany([
     {
-      accountNumber: 1,
-      product: products[0]._id,
+      //accountNumber: 1,
+      product: [products[0]],
       transactions: [transactions[0],transactions[1]]
     },
     {
-      accountNumber: 2,
-      product: products[1]._id,
+      //accountNumber: 2,
+      product: [products[1]],
      transactions: [transactions[0]]
     }
   ])
