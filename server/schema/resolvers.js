@@ -6,6 +6,7 @@ const {
 
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const { Schema } = require('mongoose');
 
 const resolvers = {
     Query: {
@@ -82,11 +83,16 @@ const resolvers = {
             return { token, user };
         },
         openAccount: async (parent, {productId}, context) => {
-            if (context.user) { //replace with context stuff for testing
+            if (true) { //replace with context stuff for testing
+                var queryData;
+                
+                const query = await Product.findOne({_id:productId})
+                    .then((data)=> queryData=data);
+                return query;
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: context.user._id },
-                    { $addToSet: { accounts: {product: productId, userId: context.user.id} } },
+                    { _id: "6384f3336e91c0c979e2f0cf" },
+                    { $addToSet: { accounts: {product: query , userId: context.user.id} } },
                     { new: true, runValidators: true }
                 )
 
