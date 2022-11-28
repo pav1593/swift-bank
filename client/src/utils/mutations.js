@@ -34,7 +34,7 @@ mutation openAccount($productId: ID!) {
   }
 `
 export const CHANGE_ACC_STATUS = gql`
-mutation changeAccStatus($accountNumber: Int!, $newStatus: String!) {
+mutation changeAccStatus($acctId: ID!, $newStatus: String!) {
     approveAccount(accountNumber: $accountNumber, newStatus: $newStatus) {
       firstName
       lastName

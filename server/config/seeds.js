@@ -95,7 +95,7 @@ db.once('open', async () => {
     },
     {
       //accountNumber: 2,
-      product: [products[1]],
+     product: [products[1]],
      transactions: [transactions[0]]
     }
   ])
