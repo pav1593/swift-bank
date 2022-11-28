@@ -31,7 +31,7 @@ const typeDefs = gql`
         createdAt: String
         approvedAt: String
         status: String
-        product: Product
+        product: [Product]
         transactions: [Transaction]
         accountBalance: Float
         originalAmount: Float
@@ -46,26 +46,24 @@ const typeDefs = gql`
         createdAt: String
         approvedAt: String
         status: String
-        product: InputProduct
+        product: [InputProduct]
         transactions: [InputTransaction]
     }
 
     type Transaction {
         _id: ID!
-        acctId: ID!
         transferTo: ID
         amount: Float!
         createdAt: String
-        type: TransType
+        type: [TransType]
     }
 
     input InputTransaction {
         _id: ID!
-        acctId: ID!
         transferTo: ID
         amount: Float!
         createdAt: String
-        type: ID
+        type: [InputTransType]
     }
 
     type TransType {
@@ -82,7 +80,7 @@ const typeDefs = gql`
         _id: ID
         name: String!
         description: String
-        unitPrice: Float!
+        unitPrice: Float
         unitQty: Int
         termDays: Int
         fixedRate: Float
@@ -93,7 +91,7 @@ const typeDefs = gql`
         _id: ID
         name: String!
         description: String
-        unitPrice: Float!
+        unitPrice: Float
         unitQty: Int
         termDays: Int
     }

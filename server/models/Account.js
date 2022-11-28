@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Transaction = require('./Transaction');
+const Product = require('./Product');
+
 
 const { Schema } = mongoose;
 
@@ -40,11 +42,12 @@ const accountSchema = new Schema({
     get: calcMaturityDate
   },
   product: 
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Product',
-      required: true
-    },
+    // {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'Product',
+    //   required: true
+    // },
+    [Product.schema],
   transactions: [Transaction.schema]
 },
 {
@@ -65,6 +68,7 @@ function calcBalance() {
 
 // function to calculate original loan or investment amount
 function calcAmount() {
+
   return this.product.unitPrice*this.product.unitQty;
 }
 
