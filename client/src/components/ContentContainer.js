@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -6,13 +6,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -24,9 +21,24 @@ import OpenAccount from '../pages/OpenAccount';
 import AccountSummary from '../pages/AccountSummary';
 import ViewTransactions from '../pages/TransactionsView';
 import Footer from './Footer';
-import { User } from '../../../server/models';
+// import { User } from '../../../server/models';
 
 const drawerWidth = 240;
+
+// testing purposes ~~~~~~~~~~~~~~~~~~~~~~~~
+let user = false;
+let admin = false;
+
+const userOptions = [
+  {
+    label: "My Dashboard",
+    link: "Dashboard"
+  }, 
+  {
+    label: "View My Accounts",
+    link: "Accounts"
+  }
+]
 
 function Container(props) {
   const [currentPage, setCurrentPage] = useState('Home');
@@ -60,17 +72,27 @@ function Container(props) {
       <Toolbar />
       <Divider />
       {/* User Routes */}
-      {(user) && (
-        <List> 
-        {['Dashboard', 'Accounts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <a href={"/"+text}>
-              <ListItemButton onSubmit={setCurrentPage(text)}>
-                <ListItemText primary={text} />
+      <List> 
+        {userOptions.map((option) => (
+          <ListItem key={option.link} disablePadding>
+            <a href={"/"+option.link}>
+              <ListItemButton onSubmit={setCurrentPage(option.link)}>
+                <ListItemText primary={option.label} />
               </ListItemButton>
             </a>
           </ListItem>
-          
+        ))}
+      </List>
+      {(user) && (
+        <List> 
+        {userOptions.map((option) => (
+          <ListItem key={option.link} disablePadding>
+            <a href={"/"+option.link}>
+              <ListItemButton onSubmit={setCurrentPage(option.link)}>
+                <ListItemText primary={option.label} />
+              </ListItemButton>
+            </a>
+          </ListItem>
         ))}
       </List>
       )}

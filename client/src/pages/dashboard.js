@@ -6,7 +6,8 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function Dashboard() {
-  if (!context.user.admin) {
+  // if (!context.user.admin) {
+  if (true) { // testing
     return ( // User dashbaord
       <div>
         <Accordion>

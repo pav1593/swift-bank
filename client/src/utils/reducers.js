@@ -1,3 +1,4 @@
+import { useReducer } from 'react';
 import {
   OPEN_ACCOUNT,
   CREATE_USER,
@@ -7,7 +8,7 @@ import {
   REMOVE_PRODUCT,
 } from './actions';
 
-export default function reducer (state,action) {
+export const reducer = (state,action) => {
   switch (action.type) {
     case OPEN_ACCOUNT: {
       const newAccount = action.payload;
@@ -60,4 +61,8 @@ export default function reducer (state,action) {
     default:
       return state;
   }
+}
+
+export function useUserReducer (initialState) {
+  return useReducer(reducer, initialState);
 }
