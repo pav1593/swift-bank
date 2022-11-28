@@ -6,7 +6,6 @@ const {
 
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-const { Schema } = require('mongoose');
 
 const resolvers = {
     Query: {
@@ -103,12 +102,16 @@ const resolvers = {
             }
         }, 
         approveAccount: async (parent, { acctId, newStatus}, context) => {
-            if (context.user.admin) {
-                return User.findOneAndUpdate( 
+            if (true) {
+                const cheese = User.findOneAndUpdate( 
                 { "accounts._id": acctId},                    
-                { $set:  {"accounts.$.status": newStatus, "accounts.$.approvedAt": new Date()  } },
+                { $set:  {"accounts.$.status": newStatus, "accounts.$.approvedAt": new Date() } },
                 { new: true, runValidators: true }
                 )
+                if(!cheese) {
+                    throw new AuthenticationError('Aiyah')
+                }
+                return cheese
             }
         },
         addProduct: async (parent, {name, description, unitPrice, unitQty, termDays}, context) => {

@@ -26,7 +26,7 @@ const typeDefs = gql`
     type Account {
         _id: ID
         userId: String
-        accountNumber: String!
+        accountNumber: String
         alias: String
         createdAt: String
         approvedAt: String
@@ -41,7 +41,7 @@ const typeDefs = gql`
     input InputAccount {
         _id: ID
         userId: String
-        accountNumber: String!
+        accountNumber: String
         alias: String
         createdAt: String
         approvedAt: String
@@ -114,7 +114,7 @@ const typeDefs = gql`
         addUser (firstName: String!, lastName: String! email: String!, password: String!): Auth
         
         openAccount (productId: ID!): User
-        approveAccount (_id: ID!, newStatus: String!): User
+        approveAccount (acctId: ID!, newStatus: String!): User
 
         addProduct (name: String!, description: String, unitPrice: Float, unitQty: Int, termDays: Int): Product
         removeProduct (_id: ID!): Product
