@@ -1,6 +1,6 @@
 const {
     Product,
-    //TransType,
+    TransType,
     User
 } = require('../models')
 
@@ -140,13 +140,16 @@ const resolvers = {
         makeTransaction: async (parent, {acctId, transferId, amount, type}, context) => {
             if (true) {
 
+                const query = await TransType.findOne({_id: type})
+                    .then((data)=> queryData = data);
+
                 const add2User = User.findOneAndUpdate(
                     { "accounts._id": acctId },
                     { $addToSet: {"accounts.$.transactions": {
                         acctId: acctId,
                         transferId: transferId,
                         amount: amount, 
-                        type: type
+                        type: query
                     }}},
                     { new: true, runValidators: true}
                 )
@@ -157,7 +160,7 @@ const resolvers = {
                         acctId: transferId,
                         transferId: acctId,
                         amount: -amount, 
-                        type: type
+                        type: query
                     }}},
                     { new: true, runValidators: true}
                 )
