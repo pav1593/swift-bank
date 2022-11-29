@@ -32,9 +32,11 @@ export default function Dashboard() {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography>{account.product[0].description}<br/></Typography>
-              <p>Account: {account._id}</p> <br/>
-              <p>Account Balance: {account.accountBalance}</p>
+              <Typography>
+                {account.product[0].description}
+                <p>Account: {account._id}</p>
+                <p>Account Balance: ${account.accountBalance}</p>
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <AccountSummary transactions={account.transactions}/>

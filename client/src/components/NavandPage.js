@@ -11,6 +11,7 @@ import Policy from '../pages/Policy';
 import Signup from '../pages/Signup';
 import MakeTransfer from "../pages/MakeTransfer";
 import Auth  from "../utils/auth";
+import Home from "../pages/Home";
 import {
   AppBar,
   Box,
@@ -74,6 +75,10 @@ const loginOptions = [
 
 const extraOptions = [
   {
+    label: "Home",
+    link: "Home"
+  },
+  {
     label: "Contact us!",
     link: "Contact"
   },
@@ -100,7 +105,7 @@ function Container(props) {
       case "ViewTransactions": return <ViewTransactions/>;
       case "Policy": return <Policy/>;
       case "Contact": return <Contact/>;
-      default: return <Contact/>
+      default: return <Home/>
     }
   }
 
