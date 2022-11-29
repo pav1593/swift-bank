@@ -64,7 +64,11 @@ const loginOptions = [
   {
     label: "Sign up now!",
     link: "Signup"
-  }
+  },
+  {
+    label: "My Dashboard",
+    link: "Dashboard"
+  }, 
 ]
 
 const extraOptions = [

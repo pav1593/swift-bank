@@ -5,7 +5,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-export default function AccountSummary() {
+export default function AccountSummary(transactions) {
+
   return (
     <List
       sx={{
@@ -14,24 +15,24 @@ export default function AccountSummary() {
         bgcolor: 'background.paper',
       }}
     >
-      <ListItem>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-      </ListItem>
-      <Divider component="li" />
-      <li>
-        <Typography
-          sx={{ mt: 0.5, ml: 2 }}
-          color="text.secondary"
-          display="block"
-          variant="caption"
-        >
-          Divider
-        </Typography>
-      </li>
-      <ListItem>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
-      </ListItem>
-      <Divider component="li" variant="inset" />
+      {transactions.map((transaction) => {
+        <div> 
+          <ListItem>
+          <ListItemText primary={transaction.amount} secondary={transaction.createdAt} />
+          </ListItem>
+          <Divider component="li" />
+          <li>
+          <Typography
+            sx={{ mt: 0.5, ml: 2 }}
+            color="text.secondary"
+            display="block"
+            variant="caption"
+          >
+            Divider
+          </Typography>
+          </li>
+        </div>
+      })}
     </List>
   );
 }
