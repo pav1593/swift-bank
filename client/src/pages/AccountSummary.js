@@ -13,11 +13,11 @@ export default function AccountSummary({transactions}) {
   console.log(transactions)
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
-      {transactions.map((transaction) => {
+      {transactions.map((transaction,index) => {
         return (
           <div key={transaction.createdAt}> 
           <ListItem>
-            <ListItemText primary={transaction.__typename+", made on "+Date(transaction.createdAt)} secondary={"$"+transaction.amount} />
+            <ListItemText primary={transaction.type[0].name+", made on "+Date(transaction.createdAt)} secondary={"$"+transaction.amount} />
           </ListItem>
           <Divider/>
         </div>
