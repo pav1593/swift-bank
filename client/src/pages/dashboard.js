@@ -10,63 +10,33 @@ import AccountSummary from './AccountSummary';
 
 export default function Dashboard() {
   const {loading, data} = useQuery(QUERY_GETME);
-  const accounts = data?.getMe || [];
+  const accounts = data?.getMe.accounts || [];
   // if (!context.user.admin) {
-  console.log(useQuery(QUERY_GETME))
-  if (true) { // testing for user logged in
+  console.log(accounts)
+  if (!loading) { // testing for user logged in
     return ( // User dashbaord
       <div>
-        <Accordion>
-            {accounts.map((account) => (
-              <div>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography>{account.product.name}: {account.product.description}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <AccountSummary transactions={account.transactions}/>
-                </AccordionDetails>
-              </div>
-            ))}
-        </Accordion>
+        {accounts.map((account) => (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>{account.product[0].description}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <AccountSummary transactions={account.transactions}/>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+        
       </div>
     );
   } else {
     return ( // Admin dashboard
       <div>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography>Accordion 1</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography>Accordion 2</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+        <h1>Loading</h1>
       </div>
     );
   }
