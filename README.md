@@ -24,6 +24,8 @@ As a banking web app, used to manage accounts.
 
 Run `npm run develop` to start the local program.
 
+Deployed on http://swiftbank.herokuapp.com/.
+
 ## Images
 
 ### Image of the Homepage
