@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { useTheme } from '@mui/material/styles';
+import { useUserContext } from '../components/GlobalState';
+import { QUERY_GETME } from '../utils/queries';
 import { 
   OutlinedInput,
   InputLabel, 
@@ -25,15 +28,14 @@ const MenuProps = {
   }
 }
 
-const accounts = [] //get accounts from query
-
-
-export default function OpenAccount() {
+export default function MakeTransfer() {
   const [state, dispatch] = useUserContext(); // contexts and states
   const [fromAccount, setFromAccount] = useState("");
   const [toAccount, setToAccount] = useState("");
   const [amount, setAmount] = useState(0);
   const theme = useTheme();
+
+  const {accounts} = useQuery(QUERY_GETME);
 
   const handleSubmit = () => {
     dispatch({
@@ -43,6 +45,8 @@ export default function OpenAccount() {
       amount
     })
   }
+  
+
 
   const handleFromAccountSelect = (e) => {
     setFromAccount(e.target.value)
@@ -72,17 +76,17 @@ export default function OpenAccount() {
               labelId="multiple-account-label"
               id="multiple-account"
               multiple
-              value={account}
-              onChange={handleToAccountSelect}
+              // value={account}
+              onChange={handleFromAccountSelect}
               input={<OutlinedInput label="Account"/>}
               MenuProps={MenuProps}
             >
               {accounts.map ((account) => (
                 <MenuItem
-                  key={account}
-                  value={account}
+                  key={account.accountNumber}
+                  value={account.name}
                 >
-                  {account}
+                  {account.description}
                 </MenuItem>
               ))}
             </Select>
@@ -90,24 +94,18 @@ export default function OpenAccount() {
           <TextField
             required
             id="outlined-required"
-            label="First Name"
+            label="Recipient Account"
+            onChange={handleToAccountSelect}
           />
           <TextField
             required
             id="outlined-required"
-            label="Last Name"
-          />
-          <br/>
-          <TextField
-            required
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
+            label="Amount"
+            onChange={handleAmountChange}
           />
         </div>
         <br/>
-        <Button variant="contained">Submit Transfer</Button>
+        <Button variant="contained" onSubmit={handleSubmit}>Submit Transfer</Button>
     </Box>
   )
 }
