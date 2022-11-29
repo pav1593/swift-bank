@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 // import { useUserContext } from '../components/GlobalState';
 import { useMutation } from '@apollo/client';
 import {LOGIN} from '../utils/mutations'
+import Auth from '../utils/auth'
 
 export default function Login() {
   // const [state, dispatch] = useUserContext(); // contexts and states
@@ -19,7 +20,10 @@ export default function Login() {
       const {data} = await login({
         variables: {email:email,password:password}
       });
-      console.log(data)
+
+      Auth.login(data.login.token)
+      console.log(data.login.token)
+      
       window.location.replace('/#Dashboard')
     } catch (e) {
       console.log(e)
