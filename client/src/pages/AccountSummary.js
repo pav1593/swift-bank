@@ -10,10 +10,11 @@ const style = {
 };
 
 export default function AccountSummary({transactions}) {
-  console.log(transactions)
+  //console.log(transactions)
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
       {transactions.map((transaction,index) => {
+        console.log(transaction.type[0])
         return (
           <div key={transaction.createdAt}> 
           <ListItem>

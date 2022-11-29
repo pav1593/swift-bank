@@ -9,8 +9,8 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        getMe: async (parent, args, context) => { 
-            const foundUser = await User.findOne({ firstName: "Jane" }) // need to change to context.user._id in production
+        getMe: async (parent, args, context) => {
+            const foundUser = await User.findOne({ _id: context.user._id}) // need to change to context.user._id in production
            
             if (!foundUser) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -57,7 +57,6 @@ const resolvers = {
     },
     Mutation: {
         login: async (parent, { email, password }) => {
-            console.log('1')
             const user = await User.findOne({email: email });
             if (!user) {
               throw new AuthenticationError("Can't find this user");
