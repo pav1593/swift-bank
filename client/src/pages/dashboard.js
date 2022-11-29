@@ -8,6 +8,13 @@ import { useQuery } from '@apollo/client';
 import { QUERY_GETME } from '../utils/queries';
 import AccountSummary from './AccountSummary';
 
+const styles = {
+  main: {
+    paddingTop: "9rem",
+    paddingBottom: "9rem"
+  }
+}
+
 export default function Dashboard() {
   const {loading, data} = useQuery(QUERY_GETME);
   const accounts = data?.getMe.accounts || [];
@@ -15,9 +22,9 @@ export default function Dashboard() {
   console.log(accounts)
   if (!loading) { // testing for user logged in
     return ( // User dashbaord
-      <div>
+      <div style={styles.main}>
         {accounts.map((account) => (
-          <Accordion>
+          <Accordion >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"

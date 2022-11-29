@@ -3,11 +3,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 
 const style = {
   width: '100%',
-  maxWidth: 360,
   bgcolor: 'background.paper',
 };
 
@@ -15,23 +13,16 @@ export default function AccountSummary({transactions}) {
   console.log(transactions)
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
-      {transactions.map((transaction,index) => {
-        <div key={index}> 
-          <ListItem button>
-            <ListItemText primary="Inbox" />
+      {transactions.map((transaction) => {
+        return (
+          <div key={transaction.createdAt}> 
+          <ListItem>
+            <ListItemText primary={transaction.__typename+", made on "+transaction.createdAt} secondary={transaction.amount} />
           </ListItem>
           <Divider/>
-          <li>
-          <Typography
-            sx={{ mt: 0.5, ml: 2 }}
-            color="text.secondary"
-            display="block"
-            variant="caption"
-          >
-            text
-          </Typography>
-          </li>
         </div>
+        )
+        
       })}
     </List>
   );
