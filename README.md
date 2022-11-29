@@ -40,9 +40,11 @@ Deployed on http://swiftbank.herokuapp.com/.
 
 Here is a list of contributors to this application:
 
-JIa Liang (Ellison) Chen: 
+Jia Liang (Ellison) Chen: https://github.com/EllisJLC
 
 Alastair Lee: https://github.com/Honsumal
+
+Nick Pavlovic: https://github.com/pav1593
 
 ## Licenses 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
