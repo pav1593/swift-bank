@@ -3,8 +3,9 @@ import { gql } from '@apollo/client'
 export const QUERY_GETME = gql`
 query GetMe {
     getMe {
+      _id
       accounts {
-        accountNumber
+        _id
         product {
           name
           description
@@ -24,7 +25,9 @@ query GetMe {
 export const QUERY_ALL_USERS = gql`
 query AllUsers {
     getAllUsers {
+      _id
       accounts {
+        _id
         createdAt
         product {
           name

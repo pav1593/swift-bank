@@ -21,17 +21,18 @@ mutation addUser($firstName: String!, $lastName: String!, $email: String!, $pass
   }
 `
 export const OPEN_ACCOUNT = gql`
-mutation openAccount($productId: ID!) {
-    openAccount(productId: $productId) {
-      firstName
-      lastName
-      accounts {
-        _id
-        accountNumber
-        createdAt
-      }
+mutation approveAccount($acctId: ID!, $newStatus: String!) {
+  approveAccount(acctId: $acctId, newStatus: $newStatus) {
+    firstName
+    lastName
+    accounts {
+      _id
+      createdAt
+      approvedAt
+      status
     }
   }
+}
 `
 export const CHANGE_ACC_STATUS = gql`
 mutation changeAccStatus($acctId: ID!, $newStatus: String!) {
@@ -48,24 +49,24 @@ mutation changeAccStatus($acctId: ID!, $newStatus: String!) {
   }
 `
 export const MAKE_TRANSACTION = gql`
-mutation makeTransaction($accNum: Int!, $amount: Float!, $transferTo: Int, $type: ID) {
-    makeTransaction(accNum: $accNum, amount: $amount, transferTo: $transferTo, type: $type) {
-      email
-      creditScore
-      accounts {
-        accountNumber
-        transactions {
-          amount
-          createdAt
-          _id
-          transferTo
-          type {
-            name
-          }
+mutation makeTransaction($acctId: ID!, $amount: Float!, $transferId: ID, $type: ID) {
+  makeTransaction(acctId: $acctId, amount: $amount, transferId: $transferId, type: $type) {
+    email
+    creditScore  
+    accounts {
+      _id  
+      transactions {
+        amount
+        _id
+        createdAt
+        transferTo
+        type {
+          name
         }
       }
     }
   }
+}
 `
 export const ADD_PRODUCT = gql`
 mutation addProduct($name: String!, $description: String, $unitPrice: Float, $unitQty: Int, $termDays: Int) {
