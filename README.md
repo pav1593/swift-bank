@@ -1,55 +1,38 @@
 # Swift Bank
 
-## Description
+## Introduction
 
-This application is a sample web application for a online bank that allows users to view their accounts, make transactions, and open accounts. Admins will be able to view all accounts, make approvals on certain accounts (such as loans). Some features are still work in progress.
+A basic banking program built in full stack MERN with Material UI.
 
-The site is easy to navigate, and includes authorization controls to ensure that users must be logged in to use the site, and also that only admins are authorized to access certain pages.
+## Table of Contents 
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [Test](#test)
+4. [Images](#images)
+5. [Credits](#credits)
+6. [Licenses](#licenses)
 
-To test out the site as a user, use "jane@abc.com" as the username, and "password" for a password. As admin features are currently unavailable, an admin login is not provided.
+## Installation 
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
-- [Tests](#tests)
-
-## Installation
-
-This application has been deployed onto Heroku and should run without any installation required.
+clone the repository from the link, https://github.com/pav1593/swift-bank and run `npm install` to install necessary node packages.
 
 ## Usage
 
-This application has been deployed onto Heroku, here is a link to the deployed site:
+As a banking web app, used to manage accounts.
 
-[Swift Bank](https://swiftbank.herokuapp.com/)
+## Test
 
-Here is an image of the deployed application's dashboard on loading:
+Run `npm run develop` to start the local program.
 
-![finished webpage](./client/public/finished-webpage.png)
+## Images
 
-## Contributors
+### Image of the Homepage
 
-Here is a list of contributors to this application:
+![Homepage preview](./images/Preview.png)
 
-Ellison Chen: 
+## Credits
 
-Alastair Lee: https://github.com/Honsumal
+Front end by Jia Liang (Ellison) Chen, Backend by Nick Pavlovic and Full stack support by Alastair Lee.
 
-## License
-
-N/A
-
-## Tests
-
-N/A
-
-## Questions
-
-Here are two links to reach out to me:
-
-Github: https://github.com/pav1593
-
-Email: 
+## Licenses 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
