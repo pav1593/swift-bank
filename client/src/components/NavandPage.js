@@ -10,7 +10,6 @@ import ViewTransactions from '../pages/TransactionsView';
 import Policy from '../pages/Policy';
 import Signup from '../pages/Signup';
 import MakeTransfer from "../pages/MakeTransfer"
-import { useUserContext } from './GlobalState';
 import {
   AppBar,
   Box,
@@ -98,29 +97,6 @@ function Container(props) {
       case "Contact": return <Contact/>;
       default: return <Contact/>
     }
-
-    if (currentPage === "Dashboard") { // Add account auth
-      return <Dashboard/>
-    }
-    if (currentPage === "Login") { // No need for auth
-      return <Login/>
-    }
-    if (currentPage === "OpenAccount") { // Add account auth
-      return <OpenAccount/>
-    }
-    if (currentPage === "AccountSummary") { // Add account auth
-      return <AccountSummary/>
-    }
-    if (currentPage === "ViewTransactions") { // Add admin auth?
-      return <ViewTransactions/>
-    }
-    if (currentPage === "Policy") {
-      return <Policy/>
-    }
-    if (currentPage === "Signup") {
-      return <Signup />
-    }
-    return <Contact/>
   }
 
   const handleDrawerToggle = () => {
@@ -202,7 +178,7 @@ function Container(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            Swift Bank
           </Typography>
         </Toolbar>
       </AppBar>

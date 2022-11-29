@@ -3,17 +3,28 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useUserContext } from '../components/GlobalState';
+import { useMutation } from '@apollo/client';
+import {LOGIN} from '../utils/mutations'
 
 export default function Login() {
   const [state, dispatch] = useUserContext(); // contexts and states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // const handleSubmit = () => {
-  //   dispatch({
-  //     type: LOGIN,
-  //   })
-  // }
+  const [login, {error}] = useMutation(LOGIN);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const {data} = await Login({
+        variables: {email,password}
+      });
+      window.location.replace('/Dashboard')
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
@@ -25,6 +36,10 @@ export default function Login() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <p>
+        Please enter your registered email and related password to log into your account!
+        If you do not have an account, please sign up
+      </p>
       <Box
         component="form"
         sx={{
@@ -51,7 +66,7 @@ export default function Login() {
           />
         </div>
       <br/>
-      <Button variant="contained">Log in</Button>
+      <Button variant="contained" onSubmit={handleSubmit}>Log in</Button>
     </Box>
     </Box>
       

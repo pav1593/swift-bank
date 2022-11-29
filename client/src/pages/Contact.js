@@ -12,7 +12,7 @@ export default function Contact() {
       <h2>Contact us</h2>
       <ul>
         <li>Email: not_a_real_email@hmail.com</li>
-        <li>Phone: +1-416-420-6969</li>
+        <li>Phone: +1-416-204-2033</li>
       </ul>
     </section>
   )
