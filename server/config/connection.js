@@ -10,7 +10,7 @@ require('dotenv').config;
 
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.DATABASE || 'mongodb://127.0.0.1:27017/swiftbank', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/swiftbank', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then (() => console.log("DB Connected"))
