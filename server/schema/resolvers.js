@@ -9,8 +9,8 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        getMe: async (parent, args, context) => {
-            const foundUser = await User.findOne({ firstName: "Jane" })
+        getMe: async (parent, args, context) => { 
+            const foundUser = await User.findOne({ firstName: "Jane" }) // need to change to context.user._id in production
            
             if (!foundUser) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -83,15 +83,15 @@ const resolvers = {
             return { token, user };
         },
         openAccount: async (parent, {productId}, context) => {
-            if (context.user) { //replace with context stuff for testing
+            if (true) { //replace with context stuff for testing
                 var queryData;
                 
                 const query = await Product.findOne({_id:productId})
                     .then((data)=> queryData=data);
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: context.user._id },
-                    { $addToSet: { accounts: {product: query , userId: context.user._id} } },
+                    { _id: "638510f5f272dc3811a8da93" },
+                    { $addToSet: { accounts: {product: query , userId: "638510f5f272dc3811a8da93"} } },
                     { new: true, runValidators: true }
                 )
 
@@ -103,7 +103,7 @@ const resolvers = {
             }
         }, 
         approveAccount: async (parent, { acctId, newStatus}, context) => {
-            if (context.user.admin) {
+            if (true) { //  context.user.admin in production
                 const cheese = User.findOneAndUpdate( 
                 { "accounts._id": acctId},                    
                 { $set:  {"accounts.$.status": newStatus, "accounts.$.approvedAt": new Date() } },
@@ -116,7 +116,7 @@ const resolvers = {
             }
         },
         addProduct: async (parent, {name, description, unitPrice, unitQty, termDays}, context) => {
-            if (context.user.admin) {
+            if (true) { // context.user.admin in prod
                 const newProd =  Product.create({name: name, description: description, unitPrice: unitPrice, unitQty: unitQty, termDays: termDays})
 
                 if (!newProd) {
@@ -127,7 +127,7 @@ const resolvers = {
             }
         },
         removeProduct: async (parent, args, context) => {
-            if (context.user.admin) {
+            if (true) { //context.user.admin in prod
                 return Product.findOneAndDelete( args , function (err, res) {
                     if (err){
                         console.log(err)
@@ -139,7 +139,7 @@ const resolvers = {
             }
         },
         makeTransaction: async (parent, {acctId, transferId, amount, type}, context) => {
-            if (true) {
+            if (true) { // need to change to context.user.amdin in prod
 
                 const query = await TransType.findOne({_id: type})
                     .then((data)=> queryData = data);
