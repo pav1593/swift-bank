@@ -2,29 +2,29 @@ import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useUserContext } from '../components/GlobalState';
-import { useMutation } from '@apollo/client';
-import {LOGIN} from '../utils/mutations'
+// import { useUserContext } from '../components/GlobalState';
+// import { useMutation } from '@apollo/client'; 
+// import {LOGIN} from '../utils/mutations'
 
 export default function Login() {
-  const [state, dispatch] = useUserContext(); // contexts and states
+  // const [state, dispatch] = useUserContext(); // contexts and states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [login, {error}] = useMutation(LOGIN);
+  // const [login, {error}] = useMutation(LOGIN);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
     
-    try {
-      const {data} = await Login({
-        variables: {email,password}
-      });
-      window.location.replace('/Dashboard')
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  //   try {
+  //     const {data} = await Login({
+  //       variables: {email,password}
+  //     });
+  //     window.location.replace('/Dashboard')
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
@@ -66,7 +66,7 @@ export default function Login() {
           />
         </div>
       <br/>
-      <Button variant="contained" onSubmit={handleSubmit}>Log in</Button>
+      <Button variant="contained">Log in</Button>
     </Box>
     </Box>
       

@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useUserContext } from '../components/GlobalState';
-import { CREATE_USER } from '../utils/actions';
+// import { useUserContext } from '../components/GlobalState';
+// import { CREATE_USER } from '../utils/actions';
 
 export default function Signup() {
 
-  const [state, dispatch] = useUserContext();
+  // const [state, dispatch] = useUserContext();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -80,7 +80,7 @@ export default function Signup() {
           />
         </div>
         <br/>
-        <Button variant="contained">Sign up</Button>
+        <Button>Sign up</Button>
       </Box>
     </Box>
   )
