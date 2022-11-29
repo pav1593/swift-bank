@@ -9,7 +9,7 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        getMe: async (parent, args, context) => { 
+        getMe: async (parent, args, context) => {
             const foundUser = await User.findOne({ _id: context.user._id}) // need to change to context.user._id in production
            
             if (!foundUser) {

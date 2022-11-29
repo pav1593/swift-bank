@@ -22,7 +22,6 @@ export default function Login() {
       });
 
       Auth.login(data.login.token)
-      console.log(data.login.token)
       
       window.location.replace('/#Dashboard')
     } catch (e) {
