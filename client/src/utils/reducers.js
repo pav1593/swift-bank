@@ -6,6 +6,7 @@ import {
   MAKE_TRANSACTION,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
+  LOGIN,
 } from './actions';
 
 export const reducer = (state,action) => {
@@ -56,6 +57,12 @@ export const reducer = (state,action) => {
       return {
         ...state,
         products: [...state.products].filter((product) => product !== action.payload)
+      }
+    }
+    case LOGIN: {
+      return{
+        ...state,
+        isLoggedIn: !action.isLoggedIn,
       }
     }
     default:

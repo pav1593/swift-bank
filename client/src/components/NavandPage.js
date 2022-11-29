@@ -10,7 +10,6 @@ import ViewTransactions from '../pages/TransactionsView';
 import Policy from '../pages/Policy';
 import Signup from '../pages/Signup';
 import MakeTransfer from "../pages/MakeTransfer";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -106,57 +105,53 @@ function Container(props) {
 
   const drawer = (
     <div>
-      <Router>
-        <Toolbar />
-        <Divider />
-        {/* User Routes */}
-        {(user) && (
-          <List>
-            <Routes>
-              {userOptions.map((option) => (
-                <ListItem key={option.link} disablePadding>
-                    <ListItemButton href={"#"+option.link} onClick={() => setCurrentPage(option.link)}>
-                      <ListItemText primary={option.label} />
-                    </ListItemButton>
-                </ListItem>
-              ))}
-            </Routes> 
-          </List>
-        )}
-        {/* Admin Routes */}
-        {(admin) && (
-          <List> 
-          {userOptions.map((option) => (
-            <ListItem key={option.link} disablePadding>
-                <ListItemButton href={"#"+option.link} onClick={() => setCurrentPage(option.link)}>
-                  <ListItemText primary={option.label} />
-                </ListItemButton>
-            </ListItem>
-          ))}
-          </List>
-        )}
-        {(!user && !admin) && (
-          <List> 
-          {loginOptions.map((option) => (
-            <ListItem key={option.link} disablePadding>
-                <ListItemButton href={"#"+option.link} onClick={() => setCurrentPage(option.link)}>
-                  <ListItemText primary={option.label} />
-                </ListItemButton>
-            </ListItem>
-          ))}
-          </List>
-        )}
-        <Divider/>
+      <Toolbar />
+      <Divider />
+      {/* User Routes */}
+      {(user) && (
         <List>
-        {extraOptions.map((option) => (
-            <ListItem key={option.link} disablePadding>
-                <ListItemButton href={"#"+option.link} onClick={() => setCurrentPage(option.link)}>
-                  <ListItemText primary={option.label} />
-                </ListItemButton>
-            </ListItem>
-          ))}
+            {userOptions.map((option) => (
+              <ListItem key={option.link} disablePadding>
+                  <ListItemButton href={"#"+option.link} onClick={() => setCurrentPage(option.link)}>
+                    <ListItemText primary={option.label} />
+                  </ListItemButton>
+              </ListItem>
+            ))}
         </List>
-      </Router>
+      )}
+      {/* Admin Routes */}
+      {(admin) && (
+        <List> 
+        {userOptions.map((option) => (
+          <ListItem key={option.link} disablePadding>
+            <ListItemButton href={"#"+option.link} onClick={() => setCurrentPage(option.link)}>
+              <ListItemText primary={option.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        </List>
+      )}
+      {(!user && !admin) && (
+        <List> 
+        {loginOptions.map((option) => (
+          <ListItem key={option.link} disablePadding>
+            <ListItemButton href={"#"+option.link} onClick={() => setCurrentPage(option.link)}>
+              <ListItemText primary={option.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        </List>
+      )}
+      <Divider/>
+      <List>
+      {extraOptions.map((option) => (
+          <ListItem key={option.link} disablePadding>
+            <ListItemButton href={"#"+option.link} onClick={() => setCurrentPage(option.link)}>
+              <ListItemText primary={option.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
   </div>
   );
 

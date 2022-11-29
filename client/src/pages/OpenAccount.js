@@ -2,25 +2,25 @@ import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-// import { useUserContext } from '../components/GlobalState';
+import { useUserContext } from '../components/GlobalState';
 import { CREATE_USER } from '../utils/actions';
 
 export default function OpenAccount() {
-  // const [state, dispatch] = useUserContext();
+  const [state, dispatch] = useUserContext();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
 
-  // const handleSubmit = () => {
-  //   dispatch({
-  //     type: CREATE_USER,
-  //     firstName,
-  //     lastName,
-  //     email,
-  //     password
-  //   })
-  // }
+  const handleSubmit = () => {
+    dispatch({
+      type: CREATE_USER,
+      firstName,
+      lastName,
+      email,
+      password
+    })
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -77,7 +77,7 @@ export default function OpenAccount() {
           />
         </div>
         <br/>
-        <Button variant="contained">Sign up</Button>
+        <Button variant="contained" onClick={handleSubmit}>Sign up</Button>
     </Box>
   )
 }

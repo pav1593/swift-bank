@@ -90,8 +90,8 @@ const resolvers = {
                     .then((data)=> queryData=data);
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: "638510f5f272dc3811a8da93" },
-                    { $addToSet: { accounts: {product: query , userId: "638510f5f272dc3811a8da93"} } },
+                    { _id: "6385776f419a0d074084f34a" },
+                    { $addToSet: { accounts: {product: query , userId: "6385776f419a0d074084f34a"} } },
                     { new: true, runValidators: true }
                 )
 
