@@ -20,7 +20,7 @@ export default function Login() {
         variables: {email:email,password:password}
       });
       console.log(data)
-      window.location.replace('/Dashboard')
+      window.location.replace('/#Dashboard')
     } catch (e) {
       console.log(e)
     }

@@ -10,6 +10,7 @@ import ViewTransactions from '../pages/TransactionsView';
 import Policy from '../pages/Policy';
 import Signup from '../pages/Signup';
 import MakeTransfer from "../pages/MakeTransfer";
+import {AuthService} from "../utils/auth";
 import {
   AppBar,
   Box,
@@ -34,7 +35,7 @@ const styles = {
 }
 
 // testing purposes ~~~~~~~~~~~~~~~~~~~~~~~~
-let user = false;
+let user = AuthService.loggedIn()
 let admin = false;
 
 const userOptions = [
