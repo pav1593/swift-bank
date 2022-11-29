@@ -32,19 +32,6 @@ export default function AccountSummary() {
         <ListItemText primary="Work" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider component="li" variant="inset" />
-      <li>
-        <Typography
-          sx={{ mt: 0.5, ml: 9 }}
-          color="text.secondary"
-          display="block"
-          variant="caption"
-        >
-          Leisure
-        </Typography>
-      </li>
-      <ListItem>
-        <ListItemText primary="Vacation" secondary="July 20, 2014" />
-      </ListItem>
     </List>
   );
 }

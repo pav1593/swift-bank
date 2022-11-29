@@ -1,80 +1,58 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
+import { useUserContext } from '../components/GlobalState';
 
 export default function Login() {
+  const [state, dispatch] = useUserContext(); // contexts and states
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // const handleSubmit = () => {
+  //   dispatch({
+  //     type: LOGIN,
+  //   })
+  // }
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-        <Box
+      <Box
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          '& .MuiTextField-root': { m: 1, width: '50%' },
         }}
         noValidate
         autoComplete="off"
-        >
-          <div>
-            <TextField
-              required
-              id="outlined-required"
-              label="Email"
-            />
-            <br/>
-            <TextField
-              required
-              id="outlined-password-input"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-            />
-          </div>
-        <br/>
-        <Button variant="contained">Log in</Button>
-      </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Box
-          component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off"
-          >
-            <div>
-              <TextField
-                required
-                id="outlined-required"
-                label="Email"
-              />
-              <TextField
-                required
-                id="outlined-required"
-                label="First Name"
-              />
-              <TextField
-                required
-                id="outlined-required"
-                label="Last Name"
-              />
-              <br/>
-              <TextField
-                required
-                id="outlined-password-input"
-                label="Password"
-                type="password"
-                autoComplete="current-password"
-              />
-            </div>
-            <br/>
-            <Button variant="contained">Sign up</Button>
-          </Box>
-        </Grid>
-      </Grid>
+      >
+        <div>
+          <TextField
+            required
+            id="outlined-required"
+            label="Email"
+            onChange={handleEmailChange}
+          />
+          <br/>
+          <TextField
+            required
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            onChange={handlePasswordChange}
+          />
+        </div>
+      <br/>
+      <Button variant="contained">Log in</Button>
+    </Box>
     </Box>
       
 );
