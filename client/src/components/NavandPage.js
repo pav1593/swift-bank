@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import MenuIcon from '@mui/icons-material/Menu';
 import Login from '../pages/Login';
-import Dashboard from '../pages/Dashboard';
+import Dashboard from '../pages/dashboard';
 import Contact from '../pages/Contact';
 import OpenAccount from '../pages/OpenAccount';
 import AccountSummary from '../pages/AccountSummary';
