@@ -17,7 +17,7 @@ export default function AccountSummary({transactions}) {
         return (
           <div key={transaction.createdAt}> 
           <ListItem>
-            <ListItemText primary={transaction.__typename+", made on "+transaction.createdAt} secondary={transaction.amount} />
+            <ListItemText primary={transaction.__typename+", made on "+Date(transaction.createdAt)} secondary={transaction.amount} />
           </ListItem>
           <Divider/>
         </div>

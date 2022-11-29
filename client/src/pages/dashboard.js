@@ -17,20 +17,24 @@ const styles = {
 
 export default function Dashboard() {
   const {loading, data} = useQuery(QUERY_GETME);
-  const accounts = data?.getMe.accounts || [];
+  const accounts = data?.getMe || [];
   // if (!context.user.admin) {
   console.log(accounts)
   if (!loading) { // testing for user logged in
     return ( // User dashbaord
       <div style={styles.main}>
-        {accounts.map((account) => (
+        <h1>Hello, {accounts.firstName}</h1>
+      
+        {accounts.accounts.map((account) => (
           <Accordion >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography>{account.product[0].description}</Typography>
+              <Typography>{account.product[0].description}<br/></Typography>
+              <p>Account: {account._id}</p> <br/>
+              <p>Account Balance: {account.accountBalance}</p>
             </AccordionSummary>
             <AccordionDetails>
               <AccountSummary transactions={account.transactions}/>
