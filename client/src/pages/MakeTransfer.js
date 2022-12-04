@@ -35,7 +35,12 @@ export default function MakeTransfer() {
   const [amount, setAmount] = useState(0);
   const theme = useTheme();
 
-  const {accounts} = useQuery(QUERY_GETME);
+  const {loading, data} = useQuery(QUERY_GETME);
+  const accounts = data?.getMe || [];
+
+  const tree = accounts.accounts.map ((acc) => acc._id)
+
+  console.log(accounts.accounts)
 
   const handleSubmit = () => {
     dispatch({
@@ -61,53 +66,61 @@ export default function MakeTransfer() {
     setAmount(e.target.value)
   }
 
-  return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-      >
-        <div>
-          <FormControl sx={{ m:1, width:300}}>
-            <InputLabel id="multiple-account-label">Choose account to transfer from</InputLabel>
-            <Select
-              labelId="multiple-account-label"
-              id="multiple-account"
-              multiple
-              // value={account}
-              onChange={handleFromAccountSelect}
-              input={<OutlinedInput label="Account"/>}
-              MenuProps={MenuProps}
-            >
-              {accounts.map ((account) => (
-                <MenuItem
-                  key={account.accountNumber}
-                  value={account.name}
-                >
-                  {account.description}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            required
-            id="outlined-required"
-            label="Recipient Account"
-            onChange={handleToAccountSelect}
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Amount"
-            onChange={handleAmountChange}
-          />
-        </div>
-        <br/>
-        <Button variant="contained" onSubmit={handleSubmit}>Submit Transfer</Button>
-    </Box>
-  )
+  if(!loading) {
+    return (
+      <Box
+        component="form"
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+        >
+          <div>
+            <FormControl sx={{ m:1, width:300}}>
+              <InputLabel id="multiple-account-label">Choose account to transfer from</InputLabel>
+              <Select
+                labelId="multiple-account-label"
+                id="multiple-account"
+                multiple
+                value={accounts.accounts}
+                onChange={handleFromAccountSelect}
+                input={<OutlinedInput label="Account"/>}
+                MenuProps={MenuProps}
+              >
+                {accounts.accounts.map ((account) => (
+                  <MenuItem
+                    key={account.accountNumber}
+                    value={account.name}
+                  >
+                    {account.description}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField
+              required
+              id="outlined-required"
+              label="Recipient Account"
+              onChange={handleToAccountSelect}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Amount"
+              onChange={handleAmountChange}
+            />
+          </div>
+          <br/>
+          <Button variant="contained" onSubmit={handleSubmit}>Submit Transfer</Button>
+      </Box>
+    )
+  } else {
+    return ( // Admin dashboard
+      <div>
+        <h1>Loading</h1>
+      </div>
+    );
+  }
 }
     
