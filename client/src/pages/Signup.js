@@ -2,26 +2,29 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useUserContext } from '../components/GlobalState';
 import { CREATE_USER } from '../utils/actions';
+import { useMutation } from '@apollo/client';
+import auth from '../utils/auth';
+
 
 export default function Signup() {
-
-  const [state, dispatch] = useUserContext();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
+  const [addUser, {error, data}] = useMutation(CREATE_USER);
 
-  const handleSubmit = () => {
-    dispatch({
-      type: CREATE_USER,
-      firstName,
-      lastName,
-      email,
-      password
-    });
-    //window.location.replace('/Dashboard')
+  const SubmitRegister = async (e) => {
+    e.preventDefault();
+    try {
+      let vars = { email:email, firstName:firstName, lastName:lastName, password:password }
+      const { data } = await addUser({
+        variables: {... vars},
+      });
+      auth.login(data.addUser.token);
+    } catch (e) {
+        console.log(e)
+      }
   }
 
   const handleEmailChange = (e) => {
@@ -81,9 +84,8 @@ export default function Signup() {
           />
         </div>
         <br/>
-        <Button variant="contained" onClick={handleSubmit}>Sign up</Button>
+        <Button variant="contained" onClick={SubmitRegister}>Sign up</Button>
       </Box>
     </Box>
   )
-
 }

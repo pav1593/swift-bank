@@ -67,10 +67,6 @@ const loginOptions = [
     label: "Sign up now!",
     link: "Signup"
   },
-  {
-    label: "My Dashboard",
-    link: "Dashboard"
-  }, 
 ]
 
 const extraOptions = [
@@ -92,6 +88,11 @@ function Container(props) {
   const [currentPage, setCurrentPage] = useState('Home');
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const logout = (e) => {
+    e.preventDefault();
+    Auth.logout();
+  }
 
   const renderPage = () => {
 
@@ -127,6 +128,11 @@ function Container(props) {
                   </ListItemButton>
               </ListItem>
             ))}
+            <ListItem key="logout" disablePadding>
+                  <ListItemButton onClick={logout}>
+                    <ListItemText primary="Log out" />
+                  </ListItemButton>
+              </ListItem>
         </List>
       )}
       {/* Admin Routes */}
