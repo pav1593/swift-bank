@@ -46,6 +46,7 @@ export default function MakeTransfer() {
     })
   }
   
+  const fromAccounts = ""; // use query to grab transactions for user and set equal to array of accounts, grabbing names
 
 
   const handleFromAccountSelect = (e) => {
