@@ -27,38 +27,38 @@ query GetMe {
 `
 export const QUERY_ALL_USERS = gql`
 query AllUsers {
-    getAllUsers {
+  getAllUsers {
+    _id
+    accounts {
       _id
-      accounts {
-        _id
-        createdAt
-        product {
-          name
-          description
-        }
-        transactions {
-          amount
-        }
-        status
+      createdAt
+      product {
+        name
+        description
       }
-      creditScore
-      firstName
-      lastName
+      transactions {
+        amount
+      }
+      status
     }
+    creditScore
+    firstName
+    lastName
+  }
 }
 `
 export const QUERY_USER_TRANSACTIONS = gql`
 query UserTransactions {
-    getAllUsers {
-      firstName
-      lastName
-      accounts {
-        accountNumber
-        transactions {
-          amount
-          createdAt
-        }
+  getAllUsers {
+    firstName
+    lastName
+    accounts {
+      accountNumber
+      transactions {
+        amount
+        createdAt
       }
     }
+  }
 }
 `
