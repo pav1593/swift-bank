@@ -142,6 +142,9 @@ const resolvers = {
 
                 const query = await TransType.findOne({_id: type})
                     .then((data)=> queryData = data);
+                
+                const tQuery = await TransType.findOne({_id: type + 1})
+                .then((data)=> queryData = data);
 
                 const add2User = User.findOneAndUpdate(
                     { "accounts._id": acctId },
@@ -160,7 +163,7 @@ const resolvers = {
                         acctId: transferId,
                         transferId: acctId,
                         amount: -amount, 
-                        type: query
+                        type: tQuery
                     }}},
                     { new: true, runValidators: true}
                 )
@@ -171,7 +174,19 @@ const resolvers = {
 
                 return Promise.all([add2User, add2Transfer])
             }
-        }
+        },
+
+        approveTransaction: async (parent, {_id, status}, context) => {
+            if (true) {
+                const approve = await User.findOneAndUpdate(
+                    { "accounts.transactions._id": _id },
+                    { $set:  {"accounts.transactions.$.status": status}},
+                    { new: true, runValidators: true}
+                )
+
+                return approve
+            }
+        } 
     }
 }
 

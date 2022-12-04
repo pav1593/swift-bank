@@ -20,6 +20,7 @@ export const reducer = (state,action) => {
     }
     case CREATE_USER: {
       const newUser = action.payload;
+      console.log(action.payload)
       return {
         ...state,
         users: [...state.users, newUser]

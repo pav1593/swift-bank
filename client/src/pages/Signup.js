@@ -21,7 +21,7 @@ export default function Signup() {
       email,
       password
     });
-    window.location.replace('/Dashboard')
+    //window.location.replace('/Dashboard')
   }
 
   const handleEmailChange = (e) => {
