@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { CREATE_USER } from '../utils/actions';
+import { CREATE_USER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 import auth from '../utils/auth';
 

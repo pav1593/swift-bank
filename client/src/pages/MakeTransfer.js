@@ -38,10 +38,6 @@ export default function MakeTransfer() {
   const {loading, data} = useQuery(QUERY_GETME);
   const accounts = data?.getMe || [];
 
-  const tree = accounts.accounts.map ((acc) => acc._id)
-
-  console.log(accounts.accounts)
-
   const handleSubmit = () => {
     dispatch({
       type: MAKE_TRANSACTION,
@@ -67,6 +63,7 @@ export default function MakeTransfer() {
   }
 
   if(!loading) {
+    const tree = accounts.accounts.map ((acc) => acc._id)
     return (
       <Box
         component="form"
@@ -83,7 +80,7 @@ export default function MakeTransfer() {
                 labelId="multiple-account-label"
                 id="multiple-account"
                 multiple
-                value={accounts.accounts}
+                value={tree}
                 onChange={handleFromAccountSelect}
                 input={<OutlinedInput label="Account"/>}
                 MenuProps={MenuProps}
@@ -91,7 +88,7 @@ export default function MakeTransfer() {
                 {accounts.accounts.map ((account) => (
                   <MenuItem
                     key={account.accountNumber}
-                    value={account.name}
+                    value={account.n_id}
                   >
                     {account.description}
                   </MenuItem>
