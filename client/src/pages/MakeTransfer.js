@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { from, useQuery } from '@apollo/client';
 import { useTheme } from '@mui/material/styles';
 import { useUserContext } from '../components/GlobalState';
 import { QUERY_GETME } from '../utils/queries';
@@ -33,30 +33,29 @@ export default function MakeTransfer() {
   const [fromAccount, setFromAccount] = useState("");
   const [toAccount, setToAccount] = useState("");
   const [amount, setAmount] = useState(0);
-  const theme = useTheme();
 
   const {loading, data} = useQuery(QUERY_GETME);
   const accounts = data?.getMe || [];
-  console.log(accounts);
 
   const handleSubmit = () => {
+    console.log(1)
     dispatch({
       type: MAKE_TRANSACTION,
       fromAccount,
       toAccount,
       amount
     })
+    console.log(2)
   }
 
   const handleFromAccountSelect = (e) => {
     let account = e.target.value;
-    console.log(account)
-    e.target.value = account;
-    console.log(e.target)
-    setFromAccount(e.target.value)
+    document.querySelector(".notranslate").textContent = account[1];
+    setFromAccount(account[1])
   }
 
   const handleToAccountSelect = (e) => {
+    console.log(fromAccount)
     setToAccount(e.target.value)
   }
 
@@ -65,7 +64,7 @@ export default function MakeTransfer() {
   }
 
   if(!loading) {
-    const tree = accounts.accounts.map ((acc) => acc._id)
+    const tree = accounts.accounts.map ((acc) => "Select Account")
     return (
       <Box
         component="form"
@@ -77,12 +76,12 @@ export default function MakeTransfer() {
         >
           <div>
             <FormControl sx={{ m:1, width:300}}>
-              <InputLabel id="multiple-account-label">Choose account to transfer from</InputLabel>
+              <InputLabel id="simple-select-label">Choose account to transfer from</InputLabel>
               <Select
-                labelId="multiple-account-label"
+                labelId="simple-select"
                 id="multiple-account"
                 multiple
-                value={tree}
+                value={["Select"]}
                 onChange={handleFromAccountSelect}
                 input={<OutlinedInput label="Account"/>}
                 MenuProps={MenuProps}
@@ -111,7 +110,7 @@ export default function MakeTransfer() {
             />
           </div>
           <br/>
-          <Button variant="contained" onSubmit={handleSubmit}>Submit Transfer</Button>
+          <Button variant="contained" onClick={handleSubmit}>Submit Transfer</Button>
       </Box>
     )
   } else {
