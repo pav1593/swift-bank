@@ -24,7 +24,7 @@ export default function Signup() {
       auth.login(data.addUser.token);
     } catch (e) {
         console.log(e)
-      }
+    }
   }
 
   const handleEmailChange = (e) => {
