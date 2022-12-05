@@ -4,7 +4,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Login from '../pages/Login';
 import Dashboard from '../pages/dashboard';
 import Contact from '../pages/Contact';
-import OpenAccount from '../pages/OpenAccount';
 import AccountSummary from '../pages/AccountSummary';
 import ViewTransactions from '../pages/TransactionsView';
 import Policy from '../pages/Policy';
@@ -100,7 +99,6 @@ function Container(props) {
       case "Signup": return <Signup/>;
       case "Login": return <Login/>;
       case "Dashboard": return <Dashboard/>;
-      case "OpenAccount": return <OpenAccount/>;
       case "AccountSummary": return <AccountSummary/>;
       case "MakeTransfer": return <MakeTransfer/>;
       case "ViewTransactions": return <ViewTransactions/>;

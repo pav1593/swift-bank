@@ -25,7 +25,7 @@ export default function Dashboard() {
       <div style={styles.main}>
         <h1>Hello, {accounts.firstName}</h1>
       
-        {accounts.accounts.map((account) => (
+        {accounts.accounts && (accounts.accounts.map((account) => (
           <Accordion >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -42,8 +42,10 @@ export default function Dashboard() {
               <AccountSummary transactions={account.transactions}/>
             </AccordionDetails>
           </Accordion>
-        ))}
-        
+        )))}
+        {!accounts.accounts && (
+          <h3>Please speak with a bank representative to request your first account.</h3>
+        )}
       </div>
     );
   } else {

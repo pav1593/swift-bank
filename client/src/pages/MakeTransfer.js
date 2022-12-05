@@ -37,6 +37,7 @@ export default function MakeTransfer() {
 
   const {loading, data} = useQuery(QUERY_GETME);
   const accounts = data?.getMe || [];
+  console.log(accounts);
 
   const handleSubmit = () => {
     dispatch({
@@ -46,11 +47,12 @@ export default function MakeTransfer() {
       amount
     })
   }
-  
-  const fromAccounts = ""; // use query to grab transactions for user and set equal to array of accounts, grabbing names
-
 
   const handleFromAccountSelect = (e) => {
+    let account = e.target.value;
+    console.log(account)
+    e.target.value = account;
+    console.log(e.target)
     setFromAccount(e.target.value)
   }
 
@@ -88,9 +90,9 @@ export default function MakeTransfer() {
                 {accounts.accounts.map ((account) => (
                   <MenuItem
                     key={account.accountNumber}
-                    value={account.n_id}
+                    value={account._id}
                   >
-                    {account.description}
+                    {account._id}
                   </MenuItem>
                 ))}
               </Select>
