@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useQuery } from '@apollo/client';
 import { QUERY_GETME } from '../utils/queries';
 import AccountSummary from './AccountSummary';
+import Auth from '../utils/auth'
 
 const styles = {
   main: {
@@ -19,6 +20,7 @@ export default function Dashboard() {
   const {loading, data} = useQuery(QUERY_GETME);
   const accounts = data?.getMe || [];
   // if (!context.user.admin) {
+  console.log(Auth.getProfile().data.admin)
   console.log(data)
   if (!loading) { // testing for user logged in
     return ( // User dashbaord
