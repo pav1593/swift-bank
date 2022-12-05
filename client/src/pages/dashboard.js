@@ -10,8 +10,8 @@ import AccountSummary from './AccountSummary';
 
 const styles = {
   main: {
-    paddingTop: "9rem",
-    paddingBottom: "9rem"
+    paddingTop: "1rem",
+    paddingBottom: "1rem"
   }
 }
 
