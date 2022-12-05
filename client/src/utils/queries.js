@@ -57,6 +57,9 @@ query UserTransactions {
       transactions {
         amount
         createdAt
+        status
+        approvedAt
+        approverId
       }
     }
   }
