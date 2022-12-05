@@ -55,6 +55,9 @@ const typeDefs = gql`
         transferTo: ID
         amount: Float!
         createdAt: String
+        approvedAtP: String
+        status: String
+        approverId: ID
         type: [TransType]
     }
 
@@ -63,6 +66,9 @@ const typeDefs = gql`
         transferTo: ID
         amount: Float!
         createdAt: String
+        approvedAt: String
+        status: String
+        approverId: ID
         type: [InputTransType]
     }
 

@@ -11,7 +11,7 @@ import AccountSummary from './AccountSummary';
 const styles = {
   main: {
     paddingTop: "1rem",
-    paddingBottom: "1rem"
+    paddingBottom: "6rem"
   }
 }
 

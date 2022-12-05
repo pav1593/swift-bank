@@ -19,6 +19,16 @@ const transactionSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  approvedAt: {
+    type: Date
+  },
+  status: {
+    type: String,
+    default: 'pending'
+  },
+  approverId: {
+    type: Schema.Types.ObjectId,
+  },
   type: [TransType.schema],
   // {
   //   type: Schema.Types.ObjectId,
