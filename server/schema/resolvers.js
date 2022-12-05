@@ -89,8 +89,8 @@ const resolvers = {
                     .then((data)=> queryData=data);
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: "6385776f419a0d074084f34a" },
-                    { $addToSet: { accounts: {product: query , userId: "6385776f419a0d074084f34a"} } },
+                    { _id: "638e5829cafd1b7f40e3853e" },
+                    { $addToSet: { accounts: {product: query , userId: "638e5829cafd1b7f40e3853e"} } },
                     { new: true, runValidators: true }
                 )
 
@@ -180,7 +180,9 @@ const resolvers = {
             if (true) {
                 const approve = await User.findOneAndUpdate(
                     { "accounts.transactions._id": _id },
-                    { $set:  {"accounts.transactions.$.status": status}},
+                    { $set:  {"accounts.transactions.$.status": status,
+                              "accounts.transactions.$.approvedAt": new Date(),
+                              "accounts.transactions.$.approverId": "638e5829cafd1b7f40e3854a"}},
                     { new: true, runValidators: true}
                 )
 

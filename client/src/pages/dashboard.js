@@ -12,7 +12,7 @@ import Auth from '../utils/auth'
 const styles = {
   main: {
     paddingTop: "1rem",
-    paddingBottom: "1rem"
+    paddingBottom: "6rem"
   }
 }
 
