@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import MenuIcon from '@mui/icons-material/Menu';
+import Link from '@mui/material/Link';
 import Login from '../pages/Login';
 import Dashboard from '../pages/dashboard';
 import Contact from '../pages/Contact';
@@ -25,6 +26,7 @@ import {
   ListItemButton,
   Typography
 } from "@mui/material"
+import logo from "../images/swiftbank_logo.png";
 
 const drawerWidth = 240;
 
@@ -114,7 +116,16 @@ function Container(props) {
 
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar>
+      <Link href="/">
+          <Box
+            component="img"
+            sx={{ height: 54 }}
+            alt="Logo"
+            src={logo}
+          />
+        </Link>
+      </Toolbar>
       <Divider />
       {/* User Routes */}
       {(user) && (
@@ -182,6 +193,7 @@ function Container(props) {
         }}
       >
         <Toolbar>
+        
           <IconButton
             color="inherit"
             aria-label="open drawer"
