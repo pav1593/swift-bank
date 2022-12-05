@@ -50,11 +50,8 @@ mutation changeAccStatus($acctId: ID!, $newStatus: String!) {
 `
 export const MAKE_TRANSACTION = gql`
 mutation makeTransaction($acctId: ID!, $amount: Float!, $transferId: ID, $type: ID) {
-  makeTransaction(acctId: $acctId, amount: $amount, transferId: $transferId, type: $type) {
-    email
-    creditScore  
+  makeTransaction(acctId: $acctId, amount: $amount, transferId: $transferId, type: $type) { 
     accounts {
-      _id  
       transactions {
         amount
         _id

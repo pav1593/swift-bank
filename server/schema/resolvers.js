@@ -143,8 +143,8 @@ const resolvers = {
                 const query = await TransType.findOne({_id: type})
                     .then((data)=> queryData = data);
                 
-                const tQuery = await TransType.findOne({_id: type + 1})
-                .then((data)=> queryData = data);
+                // const tQuery = await TransType.findOne({_id: type})
+                //     .then((data)=> queryData = data);
 
                 const add2User = User.findOneAndUpdate(
                     { "accounts._id": acctId },
@@ -163,7 +163,7 @@ const resolvers = {
                         acctId: transferId,
                         transferId: acctId,
                         amount: -amount, 
-                        type: tQuery
+                        type: query
                     }}},
                     { new: true, runValidators: true}
                 )

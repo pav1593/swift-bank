@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { from, useQuery } from '@apollo/client';
+import { from, useMutation, useQuery } from '@apollo/client';
 import { useTheme } from '@mui/material/styles';
-import { useUserContext } from '../components/GlobalState';
 import { QUERY_GETME } from '../utils/queries';
 import { 
   OutlinedInput,
@@ -11,9 +10,9 @@ import {
   Select, 
   Box, 
   TextField, 
-  Button 
+  Button, 
 } from '@mui/material';
-import { MAKE_TRANSACTION } from '../utils/actions';
+import { MAKE_TRANSACTION } from '../utils/mutations';
 
 // Select box styling
 
@@ -29,23 +28,36 @@ const MenuProps = {
 }
 
 export default function MakeTransfer() {
-  const [state, dispatch] = useUserContext(); // contexts and states
   const [fromAccount, setFromAccount] = useState("");
   const [toAccount, setToAccount] = useState("");
   const [amount, setAmount] = useState(0);
+  const [makeTrans, {error, cheese}] = useMutation(MAKE_TRANSACTION)
 
   const {loading, data} = useQuery(QUERY_GETME);
   const accounts = data?.getMe || [];
 
-  const handleSubmit = () => {
-    console.log(1)
-    dispatch({
-      type: MAKE_TRANSACTION,
-      fromAccount,
-      toAccount,
-      amount
-    })
-    console.log(2)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isNaN(parseFloat(amount))){
+      alert("Please enter a valid amount here")
+      return
+    }
+    try {
+      let vars = {acctId: fromAccount, transferId: toAccount, amount: parseFloat(amount), type: "6386767adfbe7979d4dc21da"}
+
+      console.log(vars)
+      
+      const { data } = await makeTrans ({
+        variables: {... vars},
+      })
+
+      console.log(data)
+
+      //do something? user can make another transaction or be redirected elsewhere
+      
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const handleFromAccountSelect = (e) => {
@@ -64,7 +76,6 @@ export default function MakeTransfer() {
   }
 
   if(!loading) {
-    const tree = accounts.accounts.map ((acc) => "Select Account")
     return (
       <Box
         component="form"
