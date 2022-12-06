@@ -71,13 +71,23 @@ db.once('open', async () => {
 
   const transactions = await Transaction.insertMany([
     {
-      //acctId: mongoose.Types.ObjectId('638263f9171b52801a452aa7'),
       amount: 1000,
       type: [transTypes[6]],
     },
     {
-      //acctId: mongoose.Types.ObjectId('638263f9171b52801a452aaa'),
       amount: 2.99,
+      type: [transTypes[1]],
+    },
+    {
+      amount: 11,
+      type: [transTypes[1]],
+    },
+    {
+      amount: -2,
+      type: [transTypes[1]],
+    },
+    {
+      amount: 16,
       type: [transTypes[1]],
     },
    
@@ -91,12 +101,12 @@ db.once('open', async () => {
     {
       //accountNumber: 1,
       product: [products[0]],
-      transactions: [transactions[0],transactions[1]]
+      transactions: [transactions[0],transactions[1],transactions[4]]
     },
     {
       //accountNumber: 2,
      product: [products[1]],
-     transactions: [transactions[0]]
+     transactions: [transactions[2],transactions[3]]
     }
   ])
 
