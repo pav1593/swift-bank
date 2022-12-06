@@ -176,14 +176,14 @@ const resolvers = {
             }
         },
 
-        approveTransaction: async (parent, {_id, status}, context) => {
+        approveTransaction: async (parent, { transId, status }, context) => {
             if (true) {
-                const approve = await User.findOneAndUpdate(
-                    { "accounts.transactions._id": _id },
-                    { $set:  {"accounts.transactions.$.status": status,
-                              "accounts.transactions.$.approvedAt": new Date(),
-                              "accounts.transactions.$.approverId": "638e5829cafd1b7f40e3854a"}},
-                    { new: true, runValidators: true}
+                const approve = await User.updateMany(
+                    { "accounts.transactions._id": transId },
+                    { $set:  {"accounts.$[t].transactions.$.status": status,
+                              "accounts.$[t].transactions.$.approvedAt": new Date(), "accounts.$[t].transactions.$.approverId": "638e5829cafd1b7f40e3854a"}},
+                    { arrayFilters: [ { "t.transactions._id": transId } ] },
+                    //{ new: true, runValidators: true}
                 )
 
                 return approve
