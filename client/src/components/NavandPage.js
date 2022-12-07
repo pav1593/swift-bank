@@ -38,7 +38,7 @@ const styles = {
 
 // testing purposes ~~~~~~~~~~~~~~~~~~~~~~~~
 let user = Auth.loggedIn()
-let admin = false;
+let admin = Auth.getProfile().data.admin;
 
 const userOptions = [
   {
