@@ -37,8 +37,13 @@ const styles = {
 }
 
 // testing purposes ~~~~~~~~~~~~~~~~~~~~~~~~
-let user = Auth.loggedIn()
-let admin = Auth.getProfile().data.admin;
+let user=false;
+let admin=false;
+let loggedIn = Auth.loggedIn();
+if (loggedIn) {
+  admin = Auth.getProfile().data.admin;
+  admin ? user=false : user=true;
+}
 
 const userOptions = [
   {

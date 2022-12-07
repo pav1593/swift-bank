@@ -22,6 +22,7 @@ export default function Dashboard() {
   const accounts = data?.getMe || [];
   // if (!context.user.admin) {
   console.log(data)
+ 
   if (!loading) { // testing for user logged in
     return ( // User dashbaord
       <div style={styles.main}>
