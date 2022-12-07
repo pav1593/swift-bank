@@ -126,7 +126,7 @@ const typeDefs = gql`
         removeProduct (_id: ID!): Product
 
         makeTransaction (acctId: ID!, transferId: ID, amount: Float!, type: ID): User
-        approveTransaction (transId: ID!, status: String): User      
+        approveTransaction (transId: ID!, status: String, approverId: ID): User      
     }
 `
 module.exports = typeDefs

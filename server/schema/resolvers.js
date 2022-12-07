@@ -176,13 +176,13 @@ const resolvers = {
             }
         },
 
-        approveTransaction: async (parent, { transId, status }, context) => {
+        approveTransaction: async (parent, { transId, status, approverId }, context) => {
             if (true) {
                 const approve = await User.updateMany(
                     { },
                     { $set:  {"accounts.$[].transactions.$[t].status": status,
                               "accounts.$[].transactions.$[t].approvedAt": new Date(), 
-                              "accounts.$[].transactions.$[t].approverId": "638fc9073a25bfcf1d861d93"
+                              "accounts.$[].transactions.$[t].approverId": approverId
                             }},
                     { arrayFilters: [ { "t._id": transId } ] },
                     //{ new: true, runValidators: true}

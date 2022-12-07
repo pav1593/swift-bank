@@ -21,7 +21,6 @@ export default function Dashboard() {
   const {loading, data} = useQuery(QUERY_GETME);
   const accounts = data?.getMe || [];
   // if (!context.user.admin) {
-  let admin = Auth.getProfile().data.admin
   console.log(data)
   if (!loading) { // testing for user logged in
     return ( // User dashbaord
