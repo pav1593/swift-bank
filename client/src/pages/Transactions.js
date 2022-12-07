@@ -3,10 +3,18 @@ import {
   List,
   ListItem,
   ListItemText,
-  Divider
+  Divider,
+  InputLabel, 
+  MenuItem, 
+  FormControl, 
+  Select, 
+  Box, 
+  Button, 
 } from '@mui/material';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { QUERY_USER_TRANSACTIONS } from '../utils/queries';
+import { CHANGE_TRANS_STATUS } from '../utils/mutations'
+import { useState } from 'react';
 import Auth from '../utils/auth'
 
 const styles = {
@@ -18,15 +26,36 @@ const styles = {
 
 export default function Transactions() {
   const admin = Auth.getProfile().data.admin;
+  const [tStatus, setTStatus] = useState("")
+  const [appTrans, {holenso, cabocha}] = useMutation(CHANGE_TRANS_STATUS)
+
   const {loading, data} = useQuery(QUERY_USER_TRANSACTIONS);
-  const accounts = data?.getAllUsers || [];
-  // if (!context.user.admin) {
-  console.log(Auth.getProfile().data.admin)
-  console.log(data)
+  const users = data?.getAllUsers || [];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const tId = prompt("To confirm, please enter in the transaction ID you are updating")
+    try {
+      let vars = {transId: tId, status: tStatus, approverId: Auth.getProfile().data._id
+      }
+      console.log(vars)
+
+      const { data } = await appTrans ({
+        variables: {...vars}
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const handleTStatus = (e) => {
+    setTStatus(e.target.value)
+  }
+
   if (!loading && admin) {
       return ( // Admin dashbaord
         <div style={styles.main}>
-          (accounts.transactions) && (
+          {(users) && (
            <List
            sx={{
              width: '100%',
@@ -34,16 +63,64 @@ export default function Transactions() {
              bgcolor: 'background.paper',
            }}
            >
-            {accounts.transactions.map((option) => (
-              <div>
-                <ListItem>
-                  <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                </ListItem>
-                <Divider component="li" />
-              </div>
-            ))}
+            {users.map((u) => {
+              return (
+                <div>
+                  <ListItem>
+                  <div>{u.firstName + " " + u.lastName}</div>
+                    {
+                      u.accounts.map(a => {
+                        return (
+                          <div>
+                            {
+                              a.transactions.map(t => {
+                                return (
+                                  <div>
+                                    <ListItemText primary={t._id} secondary= {"from: " + a._id + "to: " + t.transferId + "made on: " + t.createdAt} /> 
+                                    {/* above needs to be reformated, have fun :D */}
+                                    <Divider component="li" />
+                                    {/* Please make this look better */}
+                                    <Box
+                                      component="form"
+                                      sx={{
+                                        '& .MuiTextField-root': { m: 1, width: '25ch' },
+                                      }}
+                                      noValidate
+                                      autoComplete="off"
+                                      >
+                                      <div>
+                                        <FormControl fullWidth>
+                                          <InputLabel id="change-trans-status-label">Age</InputLabel>
+                                          <Select
+                                            labelId="change-trans-status-label"
+                                            id="change-trans-status"
+                                            // fix the value please
+                                            value={tStatus}
+                                            label="Approve or Reject"
+                                            onChange={handleTStatus}
+                                          >
+                                            <MenuItem value={"approve"}>Approve</MenuItem>
+                                            <MenuItem value={"reject"}>Reject</MenuItem>
+                                          </Select>
+                                        </FormControl>
+                                      </div>
+                                      <Button variant="contained" onClick={handleSubmit}>Change Transaction Status</Button>
+                                    </Box>
+                                  </div>
+                                )
+                              })
+                            }
+                          </div>
+                        )
+                      })
+                    }
+                  </ListItem>
+                  <Divider component="li" />
+                </div>
+              )
+            })}
           </List>
-          )
+          )}
         </div>
       )
   } else if (!loading && !admin) {

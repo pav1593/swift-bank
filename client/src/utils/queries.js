@@ -53,13 +53,15 @@ query UserTransactions {
     firstName
     lastName
     accounts {
-      accountNumber
+      _id
       transactions {
         amount
-        createdAt
-        status
         approvedAt
         approverId
+        _id
+        createdAt
+        status
+        transferTo
       }
     }
   }

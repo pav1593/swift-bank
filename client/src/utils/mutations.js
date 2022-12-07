@@ -66,24 +66,24 @@ mutation makeTransaction($acctId: ID!, $amount: Float!, $transferId: ID, $type: 
 }
 `
 export const CHANGE_TRANS_STATUS = gql`
-mutation changeTransStatus($transId: ID!, $status: String) {
-    approveTransaction(_id: $transId, status: $status) {
-      accounts {
-        transactions {
-          amount
-          _id
-          createdAt
-          transferTo
-          type {
-            name
-          }
-          status
-          approvedAt
-          approverId
+mutation changeTransStatus($transId: ID!, $status: String, $approverId: ID) {
+  approveTransaction(transId: $transId, status: $status, approverId: $approverId) {
+    accounts {
+      transactions {
+        amount
+        _id
+        createdAt
+        transferTo
+        type {
+          name
         }
+        status
+        approvedAt
+        approverId
       }
     }
   }
+}
 `
 
 export const ADD_PRODUCT = gql`
