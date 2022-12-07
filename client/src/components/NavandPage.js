@@ -135,7 +135,7 @@ function Container(props) {
       </Toolbar>
       <Divider />
       {/* User Routes */}
-      {(user) && (
+      {(user && !admin) && (
         <List>
             {userOptions.map((option) => (
               <ListItem key={option.link} disablePadding>
