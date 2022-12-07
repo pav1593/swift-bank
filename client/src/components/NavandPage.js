@@ -6,12 +6,12 @@ import Login from '../pages/Login';
 import Dashboard from '../pages/dashboard';
 import Contact from '../pages/Contact';
 import AccountSummary from '../pages/AccountSummary';
-import ViewTransactions from '../pages/TransactionsView';
 import Policy from '../pages/Policy';
 import Signup from '../pages/Signup';
 import MakeTransfer from "../pages/MakeTransfer";
 import Auth  from "../utils/auth";
 import Home from "../pages/Home";
+import Transactions from '../pages/Transactions';
 import {
   AppBar,
   Box,
@@ -70,6 +70,13 @@ const loginOptions = [
   },
 ]
 
+const adminOptions = [
+  {
+    label: "View all transactions",
+    link: "Transactions"
+  }
+]
+
 const extraOptions = [
   {
     label: "Home",
@@ -103,9 +110,9 @@ function Container(props) {
       case "Dashboard": return <Dashboard/>;
       case "AccountSummary": return <AccountSummary/>;
       case "MakeTransfer": return <MakeTransfer/>;
-      case "ViewTransactions": return <ViewTransactions/>;
       case "Policy": return <Policy/>;
       case "Contact": return <Contact/>;
+      case "Transactions": return <Transactions/>;
       default: return <Home/>
     }
   }
@@ -138,22 +145,27 @@ function Container(props) {
               </ListItem>
             ))}
             <ListItem key="logout" disablePadding>
-                  <ListItemButton onClick={logout}>
-                    <ListItemText primary="Log out" />
-                  </ListItemButton>
-              </ListItem>
+                <ListItemButton onClick={logout}>
+                  <ListItemText primary="Log out" />
+                </ListItemButton>
+            </ListItem>
         </List>
       )}
       {/* Admin Routes */}
       {(admin) && (
         <List> 
-        {userOptions.map((option) => (
+        {adminOptions.map((option) => (
           <ListItem key={option.link} disablePadding>
             <ListItemButton href={"#"+option.link} onClick={() => setCurrentPage(option.link)}>
               <ListItemText primary={option.label} />
             </ListItemButton>
           </ListItem>
         ))}
+          <ListItem key="logout" disablePadding>
+                <ListItemButton onClick={logout}>
+                  <ListItemText primary="Log out" />
+                </ListItemButton>
+            </ListItem>
         </List>
       )}
       {(!user && !admin) && (
