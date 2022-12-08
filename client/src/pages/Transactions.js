@@ -21,6 +21,13 @@ const styles = {
   main: {
     paddingTop: "1rem",
     paddingBottom: "6rem"
+  },
+  button: {
+    margin: "1rem"
+  },
+  name: {
+    fontSize: "2rem",
+    paddingRight: "1rem"
   }
 }
 
@@ -59,15 +66,13 @@ export default function Transactions() {
            <List
            sx={{
              width: '100%',
-             maxWidth: 360,
              bgcolor: 'background.paper',
            }}
            >
             {users.map((u) => {
               return (
                 <div>
-                  <ListItem>
-                  <div>{u.firstName + " " + u.lastName}</div>
+                  
                     {
                       u.accounts.map(a => {
                         return (
@@ -75,11 +80,11 @@ export default function Transactions() {
                             {
                               a.transactions.map(t => {
                                 return (
+                                  <ListItem>
+                                    <div style={styles.name}>{u.firstName + " " + u.lastName}</div>
                                   <div>
-                                    <ListItemText primary={t._id} secondary= {"from: " + a._id + "to: " + t.transferId + "made on: " + t.createdAt} /> 
-                                    {/* above needs to be reformated, have fun :D */}
+                                    <ListItemText primary={"$"+t.amount} secondary= {"To: " + t.transferId + " Made on: " + t.createdAt} tertiary="test"/> 
                                     <Divider component="li" />
-                                    {/* Please make this look better */}
                                     <Box
                                       component="form"
                                       sx={{
@@ -90,7 +95,7 @@ export default function Transactions() {
                                       >
                                       <div>
                                         <FormControl fullWidth>
-                                          <InputLabel id="change-trans-status-label">Age</InputLabel>
+                                          <InputLabel id="change-trans-status-label">Select an action</InputLabel>
                                           <Select
                                             labelId="change-trans-status-label"
                                             id="change-trans-status"
@@ -104,9 +109,11 @@ export default function Transactions() {
                                           </Select>
                                         </FormControl>
                                       </div>
-                                      <Button variant="contained" onClick={handleSubmit}>Change Transaction Status</Button>
+                                      <Button variant="contained" onClick={handleSubmit} style={styles.button}>Change Transaction Status</Button>
                                     </Box>
                                   </div>
+                                  <Divider/>
+                                  </ListItem>
                                 )
                               })
                             }
@@ -114,7 +121,7 @@ export default function Transactions() {
                         )
                       })
                     }
-                  </ListItem>
+                  
                   <Divider component="li" />
                 </div>
               )
