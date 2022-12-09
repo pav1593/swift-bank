@@ -125,7 +125,7 @@ const typeDefs = gql`
         addProduct (name: String!, description: String, unitPrice: Float, unitQty: Int, termDays: Int): Product
         removeProduct (_id: ID!): Product
 
-        makeTransaction (acctId: ID!, transferId: ID, amount: Float!, type: ID): User
+        makeTransaction (acctId: ID!, transferId: ID!, amount: Float!, type: ID): User
         approveTransaction (transId: ID!, status: String, approverId: ID): User      
     }
 `

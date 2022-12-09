@@ -42,8 +42,11 @@ export default function Transactions() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const tId = prompt("To confirm, please enter in the transaction ID you are updating")
+    let tString
+    tStatus === 'approve' ? tString = 'approved' : tString = 'rejected'
+    
     try {
-      let vars = {transId: tId, status: tStatus, approverId: Auth.getProfile().data._id
+      let vars = {transId: tId, status: tString, approverId: Auth.getProfile().data._id
       }
       console.log(vars)
 
@@ -83,7 +86,7 @@ export default function Transactions() {
                                   <ListItem>
                                     <div style={styles.name}>{u.firstName + " " + u.lastName}</div>
                                   <div>
-                                    <ListItemText primary={"$"+t.amount} secondary= {"To: " + t.transferId + " Made on: " + t.createdAt} tertiary="test"/> 
+                                    <ListItemText primary={"$ " + t.amount} secondary= {"To: " + t.transferTo + " Made on: " + t.createdAt} tertiary="test"/> 
                                     <Divider component="li" />
                                     <Box
                                       component="form"

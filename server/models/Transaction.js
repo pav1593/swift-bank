@@ -10,6 +10,8 @@ const transactionSchema = new Schema({
   // },
   transferTo: {
     type: Schema.Types.ObjectId,
+    required: true,
+    default: "638fbedf5c0b28d4dd2941f4"
   },
   amount: {
     type: Number,
