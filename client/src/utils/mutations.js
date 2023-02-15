@@ -21,15 +21,12 @@ mutation addUser($firstName: String!, $lastName: String!, $email: String!, $pass
   }
 `
 export const OPEN_ACCOUNT = gql`
-mutation approveAccount($acctId: ID!, $newStatus: String!) {
-  approveAccount(acctId: $acctId, newStatus: $newStatus) {
+mutation OpenAccount($productId: ID!) {
+  openAccount(productId: $productId) {
     firstName
     lastName
     accounts {
       _id
-      createdAt
-      approvedAt
-      status
     }
   }
 }

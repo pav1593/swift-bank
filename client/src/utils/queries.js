@@ -67,3 +67,12 @@ query UserTransactions {
   }
 }
 `
+
+export const QUERY_PRODUCTS = gql`
+query Query {
+  getProducts {
+    _id
+    name
+  }
+}
+`
