@@ -10,18 +10,16 @@ const style = {
 };
 
 export default function AccountSummary({transactions}) {
-  //console.log(transactions)
+  // console.log(transactions)
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
       {transactions && (transactions.map((transaction,index) => {
         console.log(transaction.type[0])
         return (
-          <div key={transaction.createdAt}> 
-          <ListItem>
+          <ListItem key={index}>
             <ListItemText primary={transaction.type[0].name+", made on "+Date(transaction.createdAt)} secondary={"$"+transaction.amount} />
+            <Divider/>
           </ListItem>
-          <Divider/>
-        </div>
         )
         
       }))}
