@@ -12,6 +12,7 @@ import MakeTransfer from "../pages/MakeTransfer";
 import Auth  from "../utils/auth";
 import Home from "../pages/Home";
 import Transactions from '../pages/Transactions';
+import CreateAccount from "../pages/CreateAccount";
 import {
   AppBar,
   Box,
@@ -52,7 +53,7 @@ const userOptions = [
   }, 
   {
     label: "View My Accounts",
-    link: "AccountSummary"
+    link: "CreateAccount"
   },
   {
     label: "Send a Transfer",
@@ -113,7 +114,7 @@ function Container(props) {
       case "Signup": return <Signup/>;
       case "Login": return <Login/>;
       case "Dashboard": return <Dashboard/>;
-      case "AccountSummary": return <AccountSummary/>;
+      case "CreateAccount": return <CreateAccount/>;
       case "MakeTransfer": return <MakeTransfer/>;
       case "Policy": return <Policy/>;
       case "Contact": return <Contact/>;

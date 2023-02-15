@@ -75,56 +75,54 @@ export default function Transactions() {
             {users.map((u) => {
               return (
                 <div>
-                  
-                    {
-                      u.accounts.map(a => {
-                        return (
-                          <div>
-                            {
-                              a.transactions.map(t => {
-                                return (
-                                  <ListItem>
-                                    <div style={styles.name}>{u.firstName + " " + u.lastName}</div>
-                                  <div>
-                                    <ListItemText primary={"$ " + t.amount} secondary= {"To: " + t.transferTo + " Made on: " + t.createdAt} tertiary="test"/> 
-                                    <Divider component="li" />
-                                    <Box
-                                      component="form"
-                                      sx={{
-                                        '& .MuiTextField-root': { m: 1, width: '25ch' },
-                                      }}
-                                      noValidate
-                                      autoComplete="off"
-                                      >
-                                      <div>
-                                        <FormControl fullWidth>
-                                          <InputLabel id="change-trans-status-label">Select an action</InputLabel>
-                                          <Select
-                                            labelId="change-trans-status-label"
-                                            id="change-trans-status"
-                                            // fix the value please
-                                            value={tStatus}
-                                            label="Approve or Reject"
-                                            onChange={handleTStatus}
-                                          >
-                                            <MenuItem value={"approve"}>Approve</MenuItem>
-                                            <MenuItem value={"reject"}>Reject</MenuItem>
-                                          </Select>
-                                        </FormControl>
-                                      </div>
-                                      <Button variant="contained" onClick={handleSubmit} style={styles.button}>Change Transaction Status</Button>
-                                    </Box>
-                                  </div>
-                                  <Divider/>
-                                  </ListItem>
-                                )
-                              })
-                            }
-                          </div>
-                        )
-                      })
-                    }
-                  
+                  {
+                    u.accounts.map(a => {
+                      return (
+                        <div>
+                          {
+                            a.transactions.map(t => {
+                              return (
+                                <ListItem>
+                                  <div style={styles.name}>{u.firstName + " " + u.lastName}</div>
+                                <div>
+                                  <ListItemText primary={"$ " + t.amount} secondary= {"To: " + t.transferTo + " Made on: " + t.createdAt} tertiary="test"/> 
+                                  <Divider component="li" />
+                                  <Box
+                                    component="form"
+                                    sx={{
+                                      '& .MuiTextField-root': { m: 1, width: '25ch' },
+                                    }}
+                                    noValidate
+                                    autoComplete="off"
+                                    >
+                                    <div>
+                                      <FormControl fullWidth>
+                                        <InputLabel id="change-trans-status-label">Select an action</InputLabel>
+                                        <Select
+                                          labelId="change-trans-status-label"
+                                          id="change-trans-status"
+                                          // fix the value please
+                                          value={tStatus}
+                                          label="Approve or Reject"
+                                          onChange={handleTStatus}
+                                        >
+                                          <MenuItem value={"approve"}>Approve</MenuItem>
+                                          <MenuItem value={"reject"}>Reject</MenuItem>
+                                        </Select>
+                                      </FormControl>
+                                    </div>
+                                    <Button variant="contained" onClick={handleSubmit} style={styles.button}>Change Transaction Status</Button>
+                                  </Box>
+                                </div>
+                                <Divider/>
+                                </ListItem>
+                              )
+                            })
+                          }
+                        </div>
+                      )
+                    })
+                  }
                   <Divider component="li" />
                 </div>
               )
