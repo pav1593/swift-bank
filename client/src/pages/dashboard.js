@@ -20,7 +20,7 @@ export default function Dashboard() {
   
   const {loading, data} = useQuery(QUERY_GETME);
   const accounts = data?.getMe || [];
-  // if (!context.user.admin) {
+  // if (!context.user.admin) { ei ei o
   console.log(data)
  
   if (!loading) { // testing for user logged in
