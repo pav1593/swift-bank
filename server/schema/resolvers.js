@@ -140,8 +140,8 @@ const resolvers = {
         makeTransaction: async (parent, {acctId, transferId, amount, type}, context) => {
             if (true) { // need to change to context.user.amdin in prod
 
-                const query = await TransType.findOne({name: type})
-                    .then((data)=> queryData = data);
+                //const query = await TransType.findOne({name: type})
+                    //.then((data)=> queryData = data);
                 
                 // const tQuery = await TransType.findOne({_id: type})
                 //     .then((data)=> queryData = data);
@@ -152,7 +152,7 @@ const resolvers = {
                         acctId: acctId,
                         transferId: transferId,
                         amount: amount, 
-                        type: query
+                        type: type
                     }}},
                     { new: true, runValidators: true}
                 )
