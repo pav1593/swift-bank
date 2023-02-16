@@ -15,7 +15,7 @@ import {
 import { MAKE_TRANSACTION } from '../utils/mutations';
 import Auth from '../utils/auth'
 
-// Select box styling hello
+// Select box styling
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
