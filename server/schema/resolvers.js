@@ -10,7 +10,7 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         getMe: async (parent, args, context) => {
-            const foundUser = await User.findOne({ _id: "63ecfe325f18554610e0823d"}) // need to change to context.user._id in production
+            const foundUser = await User.findOne({ _id: "63ed086c8d4ae45ae40d891d"}) // need to change to context.user._id in production
            
             if (!foundUser) {
               throw new AuthenticationError('Cannot find a user with this id!');
@@ -86,11 +86,11 @@ const resolvers = {
                 var queryData;
                 
                 const query = await Product.findOne({_id:productId})
-                    .then((data)=> queryData=data);
+                    .then((data)=> queryData = data);
 
                 const addAcc2User = User.findOneAndUpdate(
-                    { _id: "638e5829cafd1b7f40e3853e" },
-                    { $addToSet: { accounts: {product: query , userId: "638e5829cafd1b7f40e3853e"} } },
+                    { _id: "63ed086c8d4ae45ae40d891d" },
+                    { $addToSet: { accounts: {product: query , userId: "63ed086c8d4ae45ae40d891d"} } },
                     { new: true, runValidators: true }
                 )
 
@@ -140,8 +140,8 @@ const resolvers = {
         makeTransaction: async (parent, {acctId, transferId, amount, type}, context) => {
             if (true) { // need to change to context.user.amdin in prod
 
-                const query = await TransType.findOne({_id: type})
-                    .then((data)=> queryData = data);
+                //const query = await TransType.findOne({name: type})
+                    //.then((data)=> queryData = data);
                 
                 // const tQuery = await TransType.findOne({_id: type})
                 //     .then((data)=> queryData = data);
@@ -152,7 +152,7 @@ const resolvers = {
                         acctId: acctId,
                         transferId: transferId,
                         amount: amount, 
-                        type: query
+                        type: type
                     }}},
                     { new: true, runValidators: true}
                 )
