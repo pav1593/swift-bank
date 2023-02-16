@@ -83,7 +83,7 @@ export default function CreateAccount() {
               <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
             ))}
           </Select>
-          <Button variant="contained" disabled={accountType=='Select an account type'}>Submit</Button>
+          <Button variant="contained">Submit</Button>
         </FormControl>
       </Box>
     );
