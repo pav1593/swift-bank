@@ -13,6 +13,7 @@ import {
   Button, 
 } from '@mui/material';
 import { MAKE_TRANSACTION } from '../utils/mutations';
+import Auth from '../utils/auth'
 
 // Select box styling
 
@@ -33,7 +34,7 @@ export default function MakeTransfer() {
   const [amount, setAmount] = useState(0);
   const [makeTrans, {error, cheese}] = useMutation(MAKE_TRANSACTION)
 
-  const {loading, data} = useQuery(QUERY_GETME);
+  const {loading, data} = useQuery(QUERY_GETME, {variables: {id: Auth.getProfile().data._id}});
   const accounts = data?.getMe || [];
 
   const handleSubmit = async (e) => {

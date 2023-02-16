@@ -108,7 +108,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        getMe: User
+        getMe (_id: ID!): User
         getAllUsers: [User]
         getProducts: [Product]
         getTransTypes: [TransType]

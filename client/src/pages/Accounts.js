@@ -44,6 +44,8 @@ export default function Accounts() {
   const {loading, data} = useQuery(QUERY_ACCOUNTS,{"status":"pending"});
   const users = data?.getAllUsers || [];
 
+  console.log(users)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let params = e.target.id.split(" ");

@@ -41,7 +41,7 @@ export default function Transactions() {
   const [appTrans, {holenso, cabocha}] = useMutation(CHANGE_TRANS_STATUS)
   const [appAcc, {nasu, tamanegi}] = useMutation(CHANGE_ACC_STATUS)
 
-  const {loading, data} = useQuery(QUERY_USER_TRANSACTIONS,{"status":"pending"});
+  const {loading, data} = useQuery(QUERY_USER_TRANSACTIONS, {variables: {"accounts.status":"pending"}});
   const users = data?.getAllUsers || [];
 
 
