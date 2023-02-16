@@ -76,7 +76,6 @@ export default function CreateAccount() {
           <Select
             labelId="simple-select"
             id="multiple-account"
-            // multiple
             value={accountType}
             onChange={handleAccountTypeSelect}
           > 
