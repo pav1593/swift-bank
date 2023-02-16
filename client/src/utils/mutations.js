@@ -32,19 +32,20 @@ mutation OpenAccount($productId: ID!) {
 }
 `
 export const CHANGE_ACC_STATUS = gql`
-mutation changeAccStatus($acctId: ID!, $newStatus: String!) {
-    approveAccount(accountNumber: $accountNumber, newStatus: $newStatus) {
-      firstName
-      lastName
-      accounts {
-        _id
-        accountNumber
-        approvedAt
-        status
-      }
+mutation ApproveAccount($acctId: ID!, $newStatus: String!) {
+  approveAccount(acctId: $acctId, newStatus: $newStatus) {
+    firstName
+    lastName
+    accounts {
+      _id
+      accountNumber
+      approvedAt
+      status
     }
   }
+}
 `
+
 export const MAKE_TRANSACTION = gql`
 mutation makeTransaction($acctId: ID!, $amount: Float!, $transferId: ID!, $type: ID) {
   makeTransaction(acctId: $acctId, amount: $amount, transferId: $transferId, type: $type) { 

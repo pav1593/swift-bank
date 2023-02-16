@@ -31,6 +31,7 @@ query AllUsers {
     _id
     accounts {
       _id
+      status
       createdAt
       product {
         name
@@ -39,7 +40,6 @@ query AllUsers {
       transactions {
         amount
       }
-      status
     }
     creditScore
     firstName
@@ -52,8 +52,15 @@ query UserTransactions {
   getAllUsers {
     firstName
     lastName
+    admin
     accounts {
       _id
+      status
+      accountNumber
+      createdAt
+      product {
+        name
+      }
       transactions {
         amount
         approvedAt
@@ -69,10 +76,26 @@ query UserTransactions {
 `
 
 export const QUERY_PRODUCTS = gql`
-query Query {
+query Products {
   getProducts {
     _id
     name
+  }
+}
+`
+
+export const QUERY_ACCOUNTS = gql`
+query Accounts {
+  getAllUsers {
+    accounts {
+      status
+      accountNumber
+      createdAt
+      product {
+        name
+      }
+    }
+    admin
   }
 }
 `
