@@ -22,8 +22,12 @@ const styles = {
     paddingTop: "1rem",
     paddingBottom: "6rem"
   },
-  button: {
+  buttonApprove: {
     margin: "1rem"
+  },
+  buttonReject: {
+    margin: "1rem",
+    background: "red",
   },
   name: {
     fontSize: "2rem",
@@ -41,7 +45,8 @@ export default function Transactions() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target.id); // e.target.id gives the id of the transaction PROBLEM SOLVED
+    let params = e.target.id.split(" ");
+    console.log(params); // e.target.id gives the id of the transaction PROBLEM SOLVED
     const tId = prompt("To confirm, please enter in the transaction ID you are updating")
     let tString
     tStatus === 'approve' ? tString = 'approved' : tString = 'rejected'
@@ -97,22 +102,9 @@ export default function Transactions() {
                                     autoComplete="off"
                                     >
                                     <div>
-                                      <FormControl fullWidth>
-                                        <InputLabel id="change-trans-status-label">Select an action</InputLabel>
-                                        <Select
-                                          labelId="change-trans-status-label"
-                                          id="change-trans-status"
-                                          // fix the value please
-                                          value={tStatus}
-                                          label="Approve or Reject"
-                                          onChange={handleTStatus}
-                                        >
-                                          <MenuItem value={"approve"}>Approve</MenuItem>
-                                          <MenuItem value={"reject"}>Reject</MenuItem>
-                                        </Select>
-                                      </FormControl>
                                     </div>
-                                    <Button variant="contained" onClick={handleSubmit} style={styles.button} id={t._id}>Change Transaction Status</Button>
+                                    <Button variant="contained" onClick={handleSubmit} className="danger" style={styles.buttonApprove} id={t._id+" approve"}>Approve</Button>
+                                    <Button variant="contained" onClick={handleSubmit} className="danger" style={styles.buttonReject} id={t._id+" reject"}>Reject</Button>
                                   </Box>
                                 </div>
                                 <Divider/>
