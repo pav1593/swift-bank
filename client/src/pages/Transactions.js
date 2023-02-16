@@ -41,6 +41,7 @@ export default function Transactions() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(e.target.id); // e.target.id gives the id of the transaction PROBLEM SOLVED
     const tId = prompt("To confirm, please enter in the transaction ID you are updating")
     let tString
     tStatus === 'approve' ? tString = 'approved' : tString = 'rejected'
@@ -82,7 +83,7 @@ export default function Transactions() {
                           {
                             a.transactions.map(t => {
                               return (
-                                <ListItem>
+                                <ListItem key={t._id} id={t._id}>
                                   <div style={styles.name}>{u.firstName + " " + u.lastName}</div>
                                 <div>
                                   <ListItemText primary={"$ " + t.amount} secondary= {"To: " + t.transferTo + " Made on: " + t.createdAt} tertiary="test"/> 
@@ -111,7 +112,7 @@ export default function Transactions() {
                                         </Select>
                                       </FormControl>
                                     </div>
-                                    <Button variant="contained" onClick={handleSubmit} style={styles.button}>Change Transaction Status</Button>
+                                    <Button variant="contained" onClick={handleSubmit} style={styles.button} id={t._id}>Change Transaction Status</Button>
                                   </Box>
                                 </div>
                                 <Divider/>
