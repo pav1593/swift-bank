@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import Dashboard from '../pages/dashboard';
 import Contact from '../pages/Contact';
 import AccountSummary from '../pages/AccountSummary';
+import Accounts from '../pages/Accounts';
 import Policy from '../pages/Policy';
 import Signup from '../pages/Signup';
 import MakeTransfer from "../pages/MakeTransfer";
@@ -80,6 +81,10 @@ const adminOptions = [
   {
     label: "View all transactions",
     link: "Transactions"
+  },
+  {
+    label: "View all account requests",
+    link: "Accounts"
   }
 ]
 
@@ -119,6 +124,7 @@ function Container(props) {
       case "Policy": return <Policy/>;
       case "Contact": return <Contact/>;
       case "Transactions": return <Transactions/>;
+      case "Accounts": return <Accounts/>;
       default: return <Home/>
     }
   }
