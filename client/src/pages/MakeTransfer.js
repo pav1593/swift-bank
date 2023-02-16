@@ -43,7 +43,7 @@ export default function MakeTransfer() {
       return
     }
     try {
-      let vars = {acctId: fromAccount, transferId: toAccount, amount: parseFloat(amount), type: "63ed086c8d4ae45ae40d88f7"}
+      let vars = {acctId: fromAccount, transferId: toAccount, amount: parseFloat(amount), type: "Deposit"}
 
       console.log(vars)
       
