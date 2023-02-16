@@ -74,16 +74,15 @@ export default function CreateAccount() {
           <Select
             labelId="simple-select"
             id="multiple-account"
-            multiple
-            value={["Select"]}
-            input={<OutlinedInput label="Account"/>}
+            // multiple
+            value={accountType}
             onChange={handleAccountTypeSelect}
           > 
             {products.map((option, index) => ( // changed to products for futureproofing
               <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
             ))}
           </Select>
-          <Button variant="contained">Submit</Button>
+          <Button variant="contained" onClick={handleSubmit}>Submit</Button>
         </FormControl>
       </Box>
     );
