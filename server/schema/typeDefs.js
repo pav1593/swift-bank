@@ -112,6 +112,8 @@ const typeDefs = gql`
         getAllUsers: [User]
         getProducts: [Product]
         getTransTypes: [TransType]
+        getPendingTrans: [User]
+        getPendingAcc (status: String!): [User]
     }
 
     type Mutation {

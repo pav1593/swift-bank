@@ -36,6 +36,28 @@ const resolvers = {
         
             return products;
         },
+        getPendingTrans: async (parent, args) => {
+            const allPendingT = await User.find({})
+            const {status} = args;
+
+            if(!allPendingT) {
+                throw new AuthenticationError('Aiyah')
+            }
+
+            return allPendingT.filter((a) => a.accounts.transactions.status == status)
+        },
+        getPendingAcc: async (parent, args) => {
+            const {status} = args;
+            const allPendingA = await User.find({
+                "accounts.status": status
+            })    
+
+            if(!allPendingA) {
+                throw new AuthenticationError('Aiyah')
+            }
+
+            return allPendingA
+        }
         // getTransTypes: async (parent, args) => {
         //     const transtypes = await TransType.find({})
            
