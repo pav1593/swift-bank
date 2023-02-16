@@ -39,6 +39,8 @@ export default function CreateAccount() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(accountType)
     
     try {
       let vars = {productId: accountType}
@@ -79,7 +81,7 @@ export default function CreateAccount() {
             onChange={handleAccountTypeSelect}
           > 
             {products.map((option, index) => ( // changed to products for futureproofing
-              <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
+              <MenuItem key={index} value={option._id}>{option.name}</MenuItem>
             ))}
           </Select>
           <Button variant="contained" onClick={handleSubmit}>Submit</Button>
