@@ -10,7 +10,7 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         getMe: async (parent, args, context) => {
-            const foundUser = await User.findOne({ _id: "63eda74fe156442d98d345c8"}) // need to change to context.user._id in production
+            const foundUser = await User.findOne({ _id: "63ed086c8d4ae45ae40d891d"}) // need to change to context.user._id in production
            
             if (!foundUser) {
               throw new AuthenticationError('Cannot find a user with this id!');
