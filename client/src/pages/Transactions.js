@@ -41,7 +41,7 @@ export default function Transactions() {
   const [appTrans, {holenso, cabocha}] = useMutation(CHANGE_TRANS_STATUS)
   const [appAcc, {nasu, tamanegi}] = useMutation(CHANGE_ACC_STATUS)
 
-  const {loading, data} = useQuery(QUERY_USER_TRANSACTIONS);
+  const {loading, data} = useQuery(QUERY_USER_TRANSACTIONS,{"status":"pending"});
   const users = data?.getAllUsers || [];
 
 
@@ -55,7 +55,7 @@ export default function Transactions() {
     // const tId = prompt("To confirm, please enter in the transaction ID you are updating")
     // let tString
     // tStatus === 'approve' ? tString = 'approved' : tString = 'rejected'
-    
+    console.log(users);
     try {
       let vars = {transId: params[0], status: params[1], approverId: Auth.getProfile().data._id
       }
@@ -93,6 +93,7 @@ export default function Transactions() {
   if (!loading && admin) {
       return ( // Admin dashbaord
         <div style={styles.main}>
+          <h1>Pending Transactions</h1>
           {(users) && (
            <List
            sx={{
@@ -143,40 +144,6 @@ export default function Transactions() {
               )
             })}
           </List>
-          )}
-
-          {(users) && (
-            <List
-            sx={{
-              width: '100%',
-              bgcolor: 'background.paper',
-            }}
-            >
-             {users.map((u) => {
-               return (
-                 <div>
-                   {
-                     u.accounts.map(a => {
-                       return (
-                         <div>
-                           <ListItem key = {a._id} id={a._id}>
-                              <div style={styles.name}>{u.firstName + " " +u.lastName}</div>
-                              <div>
-                                <ListItemText primary={a.product[0].name} />
-                                  <Button variant="contained" onClick={handleAppAcc} className="danger" style={styles.buttonApprove} id={a._id+" approved"}>Approve</Button>
-                                  <Button variant="contained" onClick={handleAppAcc} className="danger" style={styles.buttonReject} id={a._id+" rejected"}>Reject</Button>
-
-                              </div>
-                           </ListItem>
-                         </div>
-                       )
-                     })
-                   }
-                   <Divider component="li" />
-                 </div>
-               )
-             })}
-           </List>
           )}
         </div>
       )
